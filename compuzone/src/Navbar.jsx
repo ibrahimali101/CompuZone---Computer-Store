@@ -1,7 +1,7 @@
 import "./Navbar.css";
 import { FaHome } from "react-icons/fa";
 import { FaShoppingCart, FaSearch } from "react-icons/fa";
-import { IoPersonCircle } from "react-icons/io5";
+import { IoPersonSharp } from "react-icons/io5";
 function Navbar() {
   return (
     <>
@@ -21,11 +21,13 @@ function Navbar() {
             <div className="cart-icon">
               <FaShoppingCart />
             </div>
-            <div className="profile-icon">
-              <span>
-                <IoPersonCircle />
-                <a href="#">تسجيل الدخول</a> | <a href="#">إنشاء حساب</a>
-              </span>
+            <div className="profile">
+              <div className="profile-icon">
+                <IoPersonSharp />
+              </div>
+              <div className="auth-links">
+                <a href="#">تسجيل الدخول</a><span>/</span><a href="#">إنشاء حساب</a>
+              </div>
             </div>
           </div>
         </div>
