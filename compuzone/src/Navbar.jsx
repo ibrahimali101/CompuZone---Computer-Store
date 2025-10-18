@@ -30,20 +30,30 @@ function Navbar() {
           </div>
         </div>
         <div className="links">
-          <span className="categories">الفئات |</span>
+          <div className="categories">الفئات&nbsp; &nbsp; |  </div>
           <ul>
             <li>
-              <a href="#">قطع الكمبيوتر</a>
+              <a href="#">قطع هاردوير</a>
             </li>
             <li>
-              <a href="#">تجميعات كمبيوتر</a>
+              <a href="#">تجميعات الكمبيوتر</a>
             </li>
             <li>
               <a href="#">اللاب توب</a>
             </li>
             <li>
+              <a href="#">الكونسول</a>
+            </li>
+            <li>
               <a href="#">الاكسسوارات</a>
             </li>
+            <li>
+              <a href="#">الشاشات </a>
+            </li>
+            <li>
+              <a href="#">ابني تجميعتك </a>
+              {/* could be canceled */}
+            </li> 
           </ul>
         </div>
       </div>
