@@ -1,0 +1,26 @@
+.divider {
+  position: relative;
+  background-color: #000;
+  text-align: center;
+  color: #fff;
+  font-weight: bold;
+  font-size: 20px;
+  padding: 40px 0;
+  overflow: hidden;
+  margin-top: 25px;
+}
+
+.divider-text {
+  position: absolute;
+  background: #fff;
+  color: #000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 40px;
+  border-radius: 0 0 40px 40px;
+  z-index: 2;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+}

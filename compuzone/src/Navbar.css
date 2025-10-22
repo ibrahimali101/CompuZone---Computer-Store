@@ -1,49 +1,42 @@
-.navbar-top{
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 20px 40px;
+.navbar-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 40px;
+  height: 4vh;
 }
-.logo{
-    width: 200px;
-    height: auto;
+.logo {
+  width: 200px;
+  height: auto;
 }
-.icons{
-    display: flex;
-    align-items: center;
-    gap: 25px;
-    font-size: 30px;
+.icons {
+  display: flex;
+  align-items: center;
+  gap: 25px;
+  font-size: 30px;
 }
-.home-icon , .cart-icon{
-    border-left: 1px solid #ccc;
-    padding-left: 20px;
+.icons svg {
+  cursor: pointer;
+  transition: all 0.3s ease;
 }
-.profile{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
+.icons svg:hover {
+  transform: scale(1.2);
 }
-.auth-links {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 5px;
-}
-.auth-links a{
-    text-decoration: none;
-    color: #000;
-    font-size: 14px;
+.home-icon,
+.favorites-icon,
+.cart-icon {
+  border-left: 1px solid #ccc;
+  padding-left: 20px;
 }
 .search-bar {
   position: relative;
   display: flex;
   align-items: center;
-  width: 500px; 
+  width: 500px;
 }
 .search-bar input {
   width: 100%;
-  padding: 8px 35px 8px 10px; 
+  padding: 8px 35px 8px 10px;
   border: 2px solid #ccc;
   border-radius: 20px;
   outline: none;
@@ -64,14 +57,14 @@
 .search-bar input:focus + .search-icon {
   color: #000000;
 }
-.links ul{
+.links ul {
   list-style: none;
   display: flex;
   align-items: center;
   gap: 25px;
   font-size: 16px;
 }
-.links ul li{
+.links ul li {
   cursor: pointer;
   transition: color 0.3s ease;
 }
@@ -89,12 +82,18 @@
   text-decoration: none;
   color: inherit;
   font-weight: lighter;
+  transition: all 0.3s ease;
 }
-.links a:hover::after{
-  content: '';
+.links a:hover {
+  font-size: 18px;
+}
+.links a::after {
+  content: "";
   display: block;
-  margin: auto;
-  width: 50%;
-  /* padding-top: 1px; */
+  width: 0px;
   border-bottom: 3px solid #ffffff;
+  transition: width 0.3s ease;
+}
+.links a:hover::after {
+  width: 100%;
 }

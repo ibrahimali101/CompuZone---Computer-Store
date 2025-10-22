@@ -1,6 +1,6 @@
 import "./Navbar.css";
 import { FaHome } from "react-icons/fa";
-import { FaShoppingCart, FaSearch } from "react-icons/fa";
+import { FaShoppingCart, FaSearch, FaHeart } from "react-icons/fa";
 import { IoPersonSharp } from "react-icons/io5";
 function Navbar() {
   return (
@@ -16,23 +16,21 @@ function Navbar() {
           </div>
           <div className="icons">
             <div className="home-icon">
-              <FaHome />
+              <FaHome title="الصفحة الرئيسية" />
+            </div>
+            <div className="favorites-icon">
+              <FaHeart title="المفضلة" />
             </div>
             <div className="cart-icon">
-              <FaShoppingCart />
+              <FaShoppingCart title="عربة التسوق" />
             </div>
-            <div className="profile">
-              <div className="profile-icon">
-                <IoPersonSharp />
-              </div>
-              <div className="auth-links">
-                <a href="#">تسجيل الدخول</a><span>/</span><a href="#">إنشاء حساب</a>
-              </div>
+            <div className="profile-icon">
+              <IoPersonSharp title="الملف الشخصي" />
             </div>
           </div>
         </div>
         <div className="links">
-          <div className="categories">الفئات&nbsp; &nbsp; |  </div>
+          <div className="categories">الفئات&nbsp; &nbsp; | </div>
           <ul>
             <li>
               <a href="#">قطع هاردوير</a>
@@ -55,8 +53,11 @@ function Navbar() {
             <li>
               <a href="#">ابني تجميعتك </a>
               {/* could be canceled */}
-            </li> 
+            </li>
           </ul>
+        </div>
+        <div className="img1">
+          <img src="https://miatlantic.com/pub/media/magefan_blog/rtx5090-banner.png" />
         </div>
       </div>
     </>
