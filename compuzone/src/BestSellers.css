@@ -1,10 +1,4 @@
-.img1 img {
-  width: 100%;
-  height: auto;
-  display: block;
-}
-
-.divider {
+.bestseller-divider {
   position: relative;
   background-color: #000;
   text-align: center;
@@ -16,7 +10,7 @@
   margin-top: 25px;
 }
 
-.divider-text {
+.bestseller-divider-text {
   position: absolute;
   background: #fff;
   color: #000;
@@ -30,7 +24,8 @@
   left: 50%;
   transform: translateX(-50%);
 }
-.featured-products-container {
+
+.bestseller-products-container {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;

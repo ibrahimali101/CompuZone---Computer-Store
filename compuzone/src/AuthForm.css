@@ -1,0 +1,110 @@
+.auth-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 20px;
+}
+
+.auth-form-box {
+  background: #fff;
+  padding: 40px;
+  border-radius: 10px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 450px;
+  text-align: center;
+}
+
+.auth-form-box h1 {
+  margin-bottom: 30px;
+  color: #000;
+}
+
+.auth-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.auth-input-group {
+  position: relative;
+}
+
+.auth-input {
+  width: 100%;
+  padding: 12px 40px 12px 15px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+  text-align: right;
+}
+
+.auth-input-icon {
+  position: absolute;
+  top: 50%;
+  right: 15px;
+  transform: translateY(-50%);
+  color: #888;
+}
+
+.auth-button {
+  background-color: #000;
+  color: white;
+  border: none;
+  padding: 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+  width: 100%;
+}
+
+.auth-button:hover {
+  background-color: #333;
+}
+
+.auth-switch-link {
+  margin-top: 20px;
+  font-size: 14px;
+  color: #555;
+}
+
+.auth-switch-link a {
+  color: #000;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.register-choice-box {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.choice-button {
+  padding: 20px;
+  font-size: 18px;
+  font-weight: bold;
+  border: 2px solid #000;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.choice-button.customer {
+  background-color: #fff;
+  color: #000;
+}
+.choice-button.customer:hover {
+  background-color: #f0f0f0;
+}
+
+.choice-button.seller {
+  background-color: #000;
+  color: #fff;
+}
+.choice-button.seller:hover {
+  background-color: #333;
+}

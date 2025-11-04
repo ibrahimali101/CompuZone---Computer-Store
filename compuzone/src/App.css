@@ -3,4 +3,9 @@
   text-align: right;
   font-family: 'Cairo', sans-serif;
   margin: 0;
+  box-sizing: border-box;
+}
+body,
+#root {
+  overflow-x: hidden;
 }

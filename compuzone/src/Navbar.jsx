@@ -2,6 +2,7 @@ import "./Navbar.css";
 import { FaHome } from "react-icons/fa";
 import { FaShoppingCart, FaSearch, FaHeart } from "react-icons/fa";
 import { IoPersonSharp } from "react-icons/io5";
+import { NavLink } from "react-router-dom";
 function Navbar() {
   return (
     <>
@@ -16,16 +17,16 @@ function Navbar() {
           </div>
           <div className="icons">
             <div className="home-icon">
-              <FaHome title="الصفحة الرئيسية" />
+              <NavLink to="/"><FaHome title="الصفحة الرئيسية" /></NavLink>
             </div>
             <div className="favorites-icon">
               <FaHeart title="المفضلة" />
             </div>
             <div className="cart-icon">
-              <FaShoppingCart title="عربة التسوق" />
+              <NavLink to="/cart"><FaShoppingCart title="عربة التسوق" /></NavLink>
             </div>
             <div className="profile-icon">
-              <IoPersonSharp title="الملف الشخصي" />
+              <NavLink to="/login"><IoPersonSharp title="الملف الشخصي" /></NavLink>
             </div>
           </div>
         </div>
@@ -52,13 +53,10 @@ function Navbar() {
             </li>
             <li>
               <a href="#">ابني تجميعتك </a>
-              {/* could be canceled */}
             </li>
           </ul>
         </div>
-        <div className="img1">
-          <img src="https://miatlantic.com/pub/media/magefan_blog/rtx5090-banner.png" />
-        </div>
+        
       </div>
     </>
   );

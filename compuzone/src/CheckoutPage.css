@@ -1,0 +1,151 @@
+.checkout-container {
+  display: flex;
+  flex-wrap: wrap-reverse;
+  gap: 40px;
+  max-width: 1200px;
+  margin: 40px auto;
+  padding: 20px;
+  align-items: flex-start;
+}
+
+.checkout-form-container {
+  flex: 2;
+  min-width: 320px;
+}
+
+.checkout-form-container h1 {
+  text-align: right;
+  margin-bottom: 30px;
+}
+
+.form-section {
+  margin-bottom: 40px;
+}
+
+.form-section h2 {
+  text-align: right;
+  margin-bottom: 20px;
+  border-bottom: 2px solid #eee;
+  padding-bottom: 10px;
+}
+
+.form-group {
+  margin-bottom: 20px;
+  text-align: right;
+}
+
+.form-group label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 8px;
+  color: #333;
+}
+
+.input-with-icon {
+  position: relative;
+}
+
+.input-with-icon .input-icon {
+  position: absolute;
+  top: 50%;
+  right: 15px;
+  transform: translateY(-50%);
+  color: #888;
+}
+
+.input-with-icon input {
+  width: 100%;
+  padding: 12px 45px 12px 15px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+  text-align: right;
+}
+
+.form-row {
+  display: flex;
+  gap: 20px;
+}
+
+.form-row .form-group {
+  flex: 1;
+}
+
+.checkout-button {
+  width: 100%;
+  background-color: #000;
+  color: white;
+  border: none;
+  padding: 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 18px;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+}
+
+.checkout-button:hover {
+  background-color: #333;
+}
+
+.order-summary-container {
+  flex: 1;
+  min-width: 300px;
+  background: #f9f9f9;
+  padding: 30px;
+  border-radius: 10px;
+  height: fit-content;
+  position: sticky;
+  top: 20px;
+}
+
+.order-summary-container h2 {
+  text-align: right;
+  margin-bottom: 20px;
+}
+
+.summary-item {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 20px;
+  padding-bottom: 15px;
+  border-bottom: 1px solid #eee;
+}
+
+.summary-item img {
+  width: 60px;
+  height: 60px;
+  object-fit: contain;
+  border-radius: 5px;
+  border: 1px solid #ddd;
+}
+
+.summary-item-details {
+  flex-grow: 1;
+  text-align: right;
+}
+.summary-item-title {
+  display: block;
+  font-weight: 600;
+}
+.summary-item-price {
+  color: #555;
+  font-size: 14px;
+}
+
+.summary-totals .summary-row,
+.summary-totals .summary-total {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 15px;
+  font-size: 16px;
+}
+
+.summary-totals .summary-total {
+  font-size: 20px;
+  font-weight: bold;
+  border-top: 1px solid #ccc;
+  padding-top: 15px;
+  margin-top: 20px;
+}
