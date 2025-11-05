@@ -1,0 +1,86 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "F:\\C\u002B\u002B\\Projects\\CompUZone\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{19ED73B5-DEC4-4CA5-B02B-185D540199C3}|CompUZone.csproj|f:\\c\u002B\u002B\\projects\\compuzone\\models\\payment.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{19ED73B5-DEC4-4CA5-B02B-185D540199C3}|CompUZone.csproj|solutionrelative:models\\payment.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{19ED73B5-DEC4-4CA5-B02B-185D540199C3}|CompUZone.csproj|f:\\c\u002B\u002B\\projects\\compuzone\\models\\compuzonecontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{19ED73B5-DEC4-4CA5-B02B-185D540199C3}|CompUZone.csproj|solutionrelative:models\\compuzonecontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 1,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedHeight": 323,
+          "SelectedChildIndex": 8,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{b1e99781-ab81-11d0-b683-00aa00a3ee26}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:1:0:{d212f56b-c48a-434c-a121-1c5d80b59b9f}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{34e76e81-ee4a-11d0-ae2e-00a0c90fffc3}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:2:0:{d212f56b-c48a-434c-a121-1c5d80b59b9f}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{aa2115a1-9712-457b-9047-dbb71ca2cdd2}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{004be353-6879-467c-9d1e-9ac23cdf6d49}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{26341fe2-71dd-46fd-bb1b-2e51a92a0d64}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Payment.cs",
+              "DocumentMoniker": "F:\\C\u002B\u002B\\Projects\\CompUZone\\Models\\Payment.cs",
+              "RelativeDocumentMoniker": "Models\\Payment.cs",
+              "ToolTip": "F:\\C\u002B\u002B\\Projects\\CompUZone\\Models\\Payment.cs",
+              "RelativeToolTip": "Models\\Payment.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAEAAAAgAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-05T20:32:25.901Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "CompuZoneContext.cs",
+              "DocumentMoniker": "F:\\C\u002B\u002B\\Projects\\CompUZone\\Models\\CompuZoneContext.cs",
+              "RelativeDocumentMoniker": "Models\\CompuZoneContext.cs",
+              "ToolTip": "F:\\C\u002B\u002B\\Projects\\CompUZone\\Models\\CompuZoneContext.cs",
+              "RelativeToolTip": "Models\\CompuZoneContext.cs",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAAAAoAAAAEAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-05T20:31:49.241Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
