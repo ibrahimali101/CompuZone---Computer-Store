@@ -1,0 +1,33 @@
+.products-page-container {
+  display: flex;
+  max-width: 1400px;
+  margin: 40px auto;
+  padding: 0 20px;
+}
+
+/* 1. الفلاتر (الشمال) */
+.sidebar-container {
+  flex-basis: 25%;
+  min-width: 280px;
+}
+
+/* 2. المنتجات (اليمين) */
+.products-content {
+  flex-basis: 75%;
+  display: flex;
+  flex-direction: column;
+}
+
+.product-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start; /* المنتجات تبدأ من اليمين */
+  gap: 20px;
+}
+
+/* --- Responsive --- */
+@media (max-width: 768px) {
+  .products-page-container {
+    flex-direction: column; /* الفلاتر فوق والمنتجات تحت */
+  }
+}

@@ -67,11 +67,7 @@ function HeroSection() {
         {sampleProducts.map((product) => (
           <ProductCard
             key={product.id}
-            imgSrc={product.imgSrc}
-            title={product.title}
-            oldPrice={product.oldPrice}
-            newPrice={product.newPrice}
-            discountPercentage={product.discountPercentage}
+            product={product} // <-- 8. ابعت الأوبجكت كله مرة واحدة
           />
         ))}
       </div>

@@ -2,8 +2,11 @@ import "./Navbar.css";
 import { FaHome } from "react-icons/fa";
 import { FaShoppingCart, FaSearch, FaHeart } from "react-icons/fa";
 import { IoPersonSharp } from "react-icons/io5";
-import { NavLink } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
 function Navbar() {
+  const location = useLocation();
+  const isAuthPage =
+    location.pathname === "/login" || location.pathname === "/register";
   return (
     <>
       <div className="navbar">
@@ -17,16 +20,24 @@ function Navbar() {
           </div>
           <div className="icons">
             <div className="home-icon">
-              <NavLink to="/"><FaHome title="الصفحة الرئيسية" /></NavLink>
+              <NavLink to="/">
+                <FaHome title="الصفحة الرئيسية" />
+              </NavLink>
             </div>
             <div className="favorites-icon">
-              <FaHeart title="المفضلة" />
+              <NavLink to="/favorites">
+                <FaHeart title="المفضلة" />
+              </NavLink>
             </div>
             <div className="cart-icon">
-              <NavLink to="/cart"><FaShoppingCart title="عربة التسوق" /></NavLink>
+              <NavLink to="/cart">
+                <FaShoppingCart title="عربة التسوق" />
+              </NavLink>
             </div>
             <div className="profile-icon">
-              <NavLink to="/login"><IoPersonSharp title="الملف الشخصي" /></NavLink>
+              <NavLink to="/login" className={isAuthPage ? "active" : ""}>
+                <IoPersonSharp title="الملف الشخصي" />
+              </NavLink>
             </div>
           </div>
         </div>
@@ -56,7 +67,6 @@ function Navbar() {
             </li>
           </ul>
         </div>
-        
       </div>
     </>
   );

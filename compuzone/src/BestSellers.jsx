@@ -65,11 +65,7 @@ function BestSellers() {
         {bestSellersData.map((product) => (
           <ProductCard
             key={product.id}
-            imgSrc={product.imgSrc}
-            title={product.title}
-            oldPrice={product.oldPrice}
-            newPrice={product.newPrice}
-            discountPercentage={product.discountPercentage}
+            product={product} // <-- 9. ابعت الأوبجكت كله مرة واحدة
           />
         ))}
       </div>

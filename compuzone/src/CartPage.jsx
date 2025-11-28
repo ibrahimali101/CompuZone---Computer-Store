@@ -72,7 +72,7 @@ function CartPage() {
               <span>الإجمالي</span>
               <span>ج.م {(subtotal + 50).toFixed(2)}</span>
             </div>
-            <NavLink to="/checkout" className="cart-button checkout-btn">
+            <NavLink to="/cart/checkout" className="cart-button checkout-btn">
               الذهاب لإنهاء الطلب
             </NavLink>
           </div>

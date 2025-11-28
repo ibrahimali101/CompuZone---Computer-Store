@@ -1,0 +1,44 @@
+.favorites-page-container {
+  max-width: 1200px;
+  margin: 40px auto;
+  padding: 20px;
+  min-height: 60vh; /* عشان لو فاضية الفوتر ميبقاش لازق فوق */
+}
+
+.favorites-page-container h1 {
+  text-align: right;
+  margin-bottom: 30px;
+}
+
+.empty-favorites {
+  text-align: center;
+  padding: 50px;
+  border: 1px dashed #ccc;
+  border-radius: 10px;
+}
+
+.favorites-button {
+  background-color: #000;
+  color: white;
+  border: none;
+  padding: 12px 30px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: bold;
+  text-decoration: none;
+  display: inline-block;
+  margin-top: 20px;
+  transition: background-color 0.3s ease;
+}
+
+.favorites-button:hover {
+  background-color: #333;
+}
+
+.favorites-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+}
