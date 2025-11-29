@@ -1,0 +1,19 @@
+# Visual Studio specific files and folders
+## Ignore the Solution User Options file
+*.suo
+
+## Ignore Visual Studio's cache/local settings folder (the one you asked for)
+.vs/
+
+## Ignore User-specific files for a project
+*.user
+
+# Build and Compilation artifacts
+## Binaries folder
+[Bb]in/
+
+## Object files folder
+[Oo]bj/
+
+## Package cache
+*.nupkg

@@ -4774,23 +4774,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\AhmedRR\\.nuget\\packages\\": {},
+    "C:\\Users\\Zero1s\\.nuget\\packages\\": {},
     "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "F:\\CompZone\\CompzoneAPIS\\CompUZone.csproj",
+      "projectUniqueName": "D:\\Ibrahim\\CompuZone\\CompZoneAPIS\\CompUZone.csproj",
       "projectName": "CompUZone",
-      "projectPath": "F:\\CompZone\\CompzoneAPIS\\CompUZone.csproj",
-      "packagesPath": "C:\\Users\\AhmedRR\\.nuget\\packages\\",
-      "outputPath": "F:\\CompZone\\CompzoneAPIS\\obj\\",
+      "projectPath": "D:\\Ibrahim\\CompuZone\\CompZoneAPIS\\CompUZone.csproj",
+      "packagesPath": "C:\\Users\\Zero1s\\.nuget\\packages\\",
+      "outputPath": "D:\\Ibrahim\\CompuZone\\CompZoneAPIS\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
-        "C:\\Users\\AhmedRR\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Zero1s\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
@@ -4857,7 +4857,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.301/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.304/PortableRuntimeIdentifierGraph.json"
       }
     }
   }
