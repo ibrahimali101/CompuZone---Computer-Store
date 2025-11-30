@@ -19,12 +19,12 @@ namespace CompuZone.Application.Features.Commands.CategoryCommands
     }
     public class CategoryArchivedCommandHandler : IRequestHandler<CategoryArchivedCommand, bool>
     {
-        private readonly IGenericRepository<ProductCategory> _repository;
+        private readonly IGenericRepository<Category> _repository;
         private readonly IMapper _mapper;
         private readonly ICurrentUserService _currentUser;
         private readonly SharedLocalizationService _localizationService;
 
-        public CategoryArchivedCommandHandler(IGenericRepository<ProductCategory> repository, IMapper mapper
+        public CategoryArchivedCommandHandler(IGenericRepository<Category> repository, IMapper mapper
             , ICurrentUserService currentUser
             , SharedLocalizationService localizationService)
         {

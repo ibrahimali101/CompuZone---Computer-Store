@@ -30,12 +30,12 @@ namespace CompuZone.Application.Features.Commands.ProductCommands
     }
     public class ProductUpdateCommandHandler : IRequestHandler<ProductUpdateCommand, bool>
     {
-        private readonly IGenericRepository<ProductCatalog> _repository;
+        private readonly IGenericRepository<Product> _repository;
         private readonly IMapper _mapper;
         private readonly ICurrentUserService _currentUser;
         private readonly SharedLocalizationService _localizationService;
 
-        public ProductUpdateCommandHandler(IGenericRepository<ProductCatalog> repository, IMapper mapper
+        public ProductUpdateCommandHandler(IGenericRepository<Product> repository, IMapper mapper
             , ICurrentUserService currentUser
             , SharedLocalizationService localizationService)
         {

@@ -8,10 +8,10 @@ using System.Threading.Tasks;
 
 namespace CompuZone.Domain.Interfaces
 {
-    public interface IProductRepository : IGenericRepository<ProductCatalog>
+    public interface IProductRepository : IGenericRepository<Product>
     {
-        Task<ProductCatalog> GetByIDWithCategoryAsync(int id);
-        IQueryable<ProductCatalog> GetAllWithCategoryAsync();
+        Task<Product> GetByIDWithCategoryAsync(int id);
+        IQueryable<Product> GetAllWithCategoryAsync();
         void InCreaseQuantity(int id, int quantity);
         void DeCreaseQuantity(int id, int quantity);
     }

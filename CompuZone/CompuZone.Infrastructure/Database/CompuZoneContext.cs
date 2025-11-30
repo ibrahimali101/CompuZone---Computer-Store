@@ -28,9 +28,9 @@ public partial class CompuZoneContext : DbContext
 
     public virtual DbSet<Payment> Payments { get; set; }
 
-    public virtual DbSet<ProductCatalog> ProductCatalogs { get; set; }
+    public virtual DbSet<Product> ProductCatalogs { get; set; }
 
-    public virtual DbSet<ProductCategory> ProductCategories { get; set; }
+    public virtual DbSet<Category> ProductCategories { get; set; }
 
     public virtual DbSet<ProductImage> ProductImages { get; set; }
 
@@ -75,5 +75,4 @@ public partial class CompuZoneContext : DbContext
 
         return base.SaveChangesAsync(cancellationToken);
     }
-    partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
 }

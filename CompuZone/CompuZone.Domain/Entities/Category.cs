@@ -9,7 +9,7 @@ namespace CompUZone.Models;
 
 [Table("ProductCategory")]
 [Index("CategoryName", Name = "UQ__ProductC__8517B2E054CE9FA8", IsUnique = true)]
-public partial class ProductCategory : NamedEntity
+public partial class Category : NamedEntity
 {
     [Key]
     [Column("CategoryID")]
@@ -19,5 +19,5 @@ public partial class ProductCategory : NamedEntity
     public string CategoryName { get; set; } = null!;
 
     [InverseProperty("Category")]
-    public virtual ICollection<ProductCatalog> ProductCatalogs { get; set; } = new List<ProductCatalog>();
+    public virtual ICollection<Product> Product { get; set; } = new List<Product>();
 }

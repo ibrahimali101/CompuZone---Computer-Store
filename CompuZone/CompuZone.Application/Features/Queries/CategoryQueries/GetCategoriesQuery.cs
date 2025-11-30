@@ -36,10 +36,10 @@ namespace CompuZone.Application.Features.Queries
     }
     public class GetCategoriesQueryHandler : IRequestHandler<GetCategoriesQuery, Response<PaginatedList<CategoryReadReponseDto>>>
     {
-        private readonly IGenericRepository<ProductCategory> _repository;
+        private readonly IGenericRepository<Category> _repository;
         private readonly IMapper _mapper;
 
-        public GetCategoriesQueryHandler(IGenericRepository<ProductCategory> repository, IMapper mapper)
+        public GetCategoriesQueryHandler(IGenericRepository<Category> repository, IMapper mapper)
         {
             _repository = repository;
             _mapper = mapper;
@@ -50,7 +50,7 @@ namespace CompuZone.Application.Features.Queries
             var query = _repository.GetAllAsync()
                               .IF(request.IsArchived != null, a => a.IArchived == request.IsArchived)
                               .FilterText(request.TextSeach)
-                              .OrderGroupBy(new List<(bool condition, Expression<Func<ProductCategory, object>>)>
+                              .OrderGroupBy(new List<(bool condition, Expression<Func<Category, object>>)>
                               {
                                  ( CategorySortBy.NameAr == request.OrderBy ,  a => a.NameAr),
                                  ( CategorySortBy.NameEn == request.OrderBy ,  a => a.NameEn),

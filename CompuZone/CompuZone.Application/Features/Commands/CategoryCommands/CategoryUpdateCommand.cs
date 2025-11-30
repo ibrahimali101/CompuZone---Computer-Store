@@ -23,12 +23,12 @@ namespace CompuZone.Application.Features.Commands.CategoryCommands
     }
     public class CategoryUpdateCommandHandler : IRequestHandler<CategoryUpdateCommand, bool>
     {
-        private readonly IGenericRepository<ProductCategory> _repository;
+        private readonly IGenericRepository<Category> _repository;
         private readonly IMapper _mapper;
         private readonly ICurrentUserService _currentUser;
         private readonly SharedLocalizationService _localizationService;
 
-        public CategoryUpdateCommandHandler(IGenericRepository<ProductCategory> repository, IMapper mapper
+        public CategoryUpdateCommandHandler(IGenericRepository<Category> repository, IMapper mapper
             , ICurrentUserService currentUser
             , SharedLocalizationService localizationService)
         {

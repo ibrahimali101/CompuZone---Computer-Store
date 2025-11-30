@@ -19,12 +19,12 @@ namespace CompuZone.Application.Features.Commands.ProductCommands
     }
     public class ProductUnArchivedCommandHandler : IRequestHandler<ProductUnArchivedCommand, bool>
     {
-        private readonly IGenericRepository<ProductCatalog> _repository;
+        private readonly IGenericRepository<Product> _repository;
         private readonly IMapper _mapper;
         private readonly ICurrentUserService _currentUser;
         private readonly SharedLocalizationService _localizationService;
 
-        public ProductUnArchivedCommandHandler(IGenericRepository<ProductCatalog> repository, IMapper mapper
+        public ProductUnArchivedCommandHandler(IGenericRepository<Product> repository, IMapper mapper
             , ICurrentUserService currentUser
             , SharedLocalizationService localizationService)
         {

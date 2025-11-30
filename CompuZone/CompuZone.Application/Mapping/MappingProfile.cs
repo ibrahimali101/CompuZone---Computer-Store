@@ -21,13 +21,13 @@ namespace CompuZone.Application.Mapping
     {
         public MappingProfile()
         {
-            CreateMap<ProductCategory, CategoryReadReponseDto>().ReverseMap();
-            CreateMap<ProductCategory, CategoryAddCommand>().ReverseMap();
-            CreateMap<ProductCategory, CategoryUpdateCommand>().ReverseMap();
+            CreateMap<Category, CategoryReadReponseDto>().ReverseMap();
+            CreateMap<Category, CategoryAddCommand>().ReverseMap();
+            CreateMap<Category, CategoryUpdateCommand>().ReverseMap();
 
-            CreateMap<ProductCatalog, ProductReadReponseDto>().ReverseMap();
-            CreateMap<ProductCatalog, ProductAddCommand>().ReverseMap();
-            CreateMap<ProductCatalog, ProductUpdateCommand>().ReverseMap();
+            CreateMap<Product, ProductReadReponseDto>().ReverseMap();
+            CreateMap<Product, ProductAddCommand>().ReverseMap();
+            CreateMap<Product, ProductUpdateCommand>().ReverseMap();
 
 
             CreateMap<Customer, CustomerReadReponseDto>().ReverseMap();

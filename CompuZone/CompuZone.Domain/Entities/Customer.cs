@@ -13,10 +13,10 @@ public partial class Customer : BaseEntity
 {
     [Key]
     [Column("CustomerID")]
-    public int CustomerId { get; set; }
+    public int CustomerID { get; set; }
 
     [StringLength(100)]
-    public string Name { get; set; } = null!;
+    public string Full_name { get; set; } = null!;
 
     [StringLength(100)]
     public string Email { get; set; } = null!;

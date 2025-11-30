@@ -20,12 +20,12 @@ namespace CompuZone.Application.Features.Queries
     }
     public class GetCategoryByIdQueryHandler : IRequestHandler<GetCategoryByIdQuery, CategoryReadReponseDto>
     {
-        private readonly IGenericRepository<ProductCategory> _repository;
+        private readonly IGenericRepository<Category> _repository;
         private readonly IMapper _mapper;
         private readonly SharedLocalizationService _localizationService;
         private readonly ICurrentUserService _currentUser;
 
-        public GetCategoryByIdQueryHandler(IGenericRepository<ProductCategory> repository ,
+        public GetCategoryByIdQueryHandler(IGenericRepository<Category> repository ,
             IMapper mapper , 
             SharedLocalizationService localizationService,
             ICurrentUserService currentUser)
@@ -45,16 +45,6 @@ namespace CompuZone.Application.Features.Queries
                 );
 
             return _mapper.Map<CategoryReadReponseDto>(category);
-
-            //return new CategoryReadReponseDto
-            //{
-            //     ID = category.ID,
-            //     NameAr = category.NameAr,
-            //     NameEn = category.NameEn,
-            //     DescriptionAr = category.DescriptionAr,
-            //     DescriptionEn = category.DescriptionEn,    
-            //     IsArchived = category.IArchived
-            //};
         }
     }
 }

@@ -20,17 +20,17 @@ namespace CompuZone.Application.Features.Commands
     }
     public class CategoryAddCommandHandler : IRequestHandler<CategoryAddCommand, bool>
     {
-        private readonly IGenericRepository<ProductCategory> _repository;
+        private readonly IGenericRepository<Category> _repository;
         private readonly IMapper _mapper;
 
-        public CategoryAddCommandHandler(IGenericRepository<ProductCategory> repository, IMapper mapper)
+        public CategoryAddCommandHandler(IGenericRepository<Category> repository, IMapper mapper)
         {
             _repository = repository;
             _mapper = mapper;
         }
         public async Task<bool> Handle(CategoryAddCommand request, CancellationToken cancellationToken)
         {
-            var category = _mapper.Map<ProductCategory>(request);
+            var category = _mapper.Map<Category>(request);
             _repository.AddAsync(category);
             var status = await _repository.SaveChangesAsync();
 

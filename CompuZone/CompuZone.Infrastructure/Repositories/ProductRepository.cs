@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace CompuZone.Infrastructure.Repositories
 {
-    public class ProductRepository : GenericRepository<ProductCatalog> ,IProductRepository 
+    public class ProductRepository : GenericRepository<Product> ,IProductRepository 
     {
         private readonly CompuZoneContext _dbContext;
 
@@ -29,12 +29,12 @@ namespace CompuZone.Infrastructure.Repositories
             var product = _dbContext.ProductCatalogs.SingleOrDefault(a => a.ID == id);
             product.QuantityInStock += quantity;
         }
-        public IQueryable<ProductCatalog> GetAllWithCategoryAsync()
+        public IQueryable<Product> GetAllWithCategoryAsync()
         {
             return _dbContext.ProductCatalogs.Include(a => a.Category);
         }
 
-        public async Task<ProductCatalog> GetByIDWithCategoryAsync(int id)
+        public async Task<Product> GetByIDWithCategoryAsync(int id)
         {
             return await _dbContext.ProductCatalogs.Include(a => a.Category).SingleOrDefaultAsync(a => a.ID == id);
         }

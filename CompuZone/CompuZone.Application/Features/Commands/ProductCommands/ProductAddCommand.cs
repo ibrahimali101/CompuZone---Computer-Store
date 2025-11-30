@@ -26,17 +26,17 @@ namespace CompuZone.Application.Features.Commands.ProductCommands
     }
     public class ProductAddCommandHandler : IRequestHandler<ProductAddCommand, bool>
     {
-        private readonly IGenericRepository<ProductCatalog> _repository;
+        private readonly IGenericRepository<Product> _repository;
         private readonly IMapper _mapper;
 
-        public ProductAddCommandHandler(IGenericRepository<ProductCatalog> repository, IMapper mapper)
+        public ProductAddCommandHandler(IGenericRepository<Product> repository, IMapper mapper)
         {
             _repository = repository;
             _mapper = mapper;
         }
         public async Task<bool> Handle(ProductAddCommand request, CancellationToken cancellationToken)
         {
-            var Product = _mapper.Map<ProductCatalog>(request);
+            var Product = _mapper.Map<Product>(request);
             _repository.AddAsync(Product);
             var status = await _repository.SaveChangesAsync();
 

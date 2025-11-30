@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 namespace CompUZone.Models;
 
 [Table("ProductCatalog")]
-public partial class ProductCatalog : NamedEntity
+public partial class Product : NamedEntity
 {
     [Key]
     [Column("ProductID")]
@@ -30,11 +30,11 @@ public partial class ProductCatalog : NamedEntity
 
     [ForeignKey("CategoryId")]
     [InverseProperty("ProductCatalogs")]
-    public virtual ProductCategory Category { get; set; } = null!;
+    public virtual Category Category { get; set; } = null!;
 
     [InverseProperty("Product")]
     public virtual ICollection<OrderItem> OrderItems { get; set; } = new List<OrderItem>();
 
-    [InverseProperty("Product")]
-    public virtual ICollection<ProductImage> ProductImages { get; set; } = new List<ProductImage>();
+    [StringLength(200)]
+    public string ProductImage { get; set; }
 }
