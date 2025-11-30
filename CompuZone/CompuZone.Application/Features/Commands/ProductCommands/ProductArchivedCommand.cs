@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using MediatR;
 using CompuZone.Application.Exceptions;
-using CompuZone.Application.Localization;
 using CompuZone.Domain.Entities;
 using CompuZone.Domain.Interfaces;
 using System;
@@ -22,25 +21,20 @@ namespace CompuZone.Application.Features.Commands.ProductCommands
         private readonly IGenericRepository<Product> _repository;
         private readonly IMapper _mapper;
         private readonly ICurrentUserService _currentUser;
-        private readonly SharedLocalizationService _localizationService;
 
         public ProductArchivedCommandHandler(IGenericRepository<Product> repository, IMapper mapper
-            , ICurrentUserService currentUser
-            , SharedLocalizationService localizationService)
+            , ICurrentUserService currentUser)
         {
             _repository = repository;
             _mapper = mapper;
             _currentUser = currentUser;
-            _localizationService = localizationService;
         }
         public async Task<bool> Handle(ProductArchivedCommand request, CancellationToken cancellationToken)
         {
             var Product =  await _repository.GetByIDAsync(request.ID);
 
             if (Product == null)
-                throw new NotFoundException(
-                       _localizationService.GetString(SharedLocalizationKeys.Exceptions_Not_Found, _currentUser.Language)
-                   );
+                throw new NotFoundException($"Product with ID {request.ID} was not found.");
 
             _repository.ArchivedAsync(Product);
             var status = await _repository.SaveChangesAsync();

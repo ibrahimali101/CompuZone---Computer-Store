@@ -15,10 +15,10 @@ namespace CompuZone.Application.Features.Commands
     public class OrderAddCommand : IRequest<bool>
     {
         public DateTime DateOrder { get; set; }
-        public int TotalOrder { get; set; }
+        public int TotalAmount { get; set; }
         public int CustomerID { get; set; }
 
-        public IEnumerable<OrderProductRequestDto> OrderProducts { get; set; }
+        public IEnumerable<OrderProductRequestDto> OrderItems { get; set; }
     }
     public class OrderAddCommandHandler : IRequestHandler<OrderAddCommand, bool>
     {

@@ -1,40 +1,37 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace CompuZone.Application.Wapper
 {
     public class Response<T>
     {
-        public string Message { get; set; }
         public T Data { get; set; }
-        public bool IsSucceded { get; set; }
-        public DateTime DateTime { get; set; }
-
+        public bool Succeeded { get; set; }
+        public string Message { get; set; }
 
         public Response()
         {
-            DateTime = DateTime.Now;
-        }
-        public Response(T data) : this()
-        {
-            Data = data;
-            IsSucceded = true;
-        }
-        public Response(T data, string massage) : this()
-        {
-            Data = data;
-            Message = massage;
-            IsSucceded = true;
+            Succeeded = true;
         }
 
-        public Response(string massage) : this()
+        // Constructor for Success
+        public Response(T data, string message = null)
         {
-            Message = massage;
-            IsSucceded = false;
+            Succeeded = true;
+            Message = message;
+            Data = data;
         }
 
+        // Constructor for Failure
+        public Response(string message)
+        {
+            Succeeded = false;
+            Message = message;
+        }
+
+        public Response(string message, bool succeeded)
+        {
+            Succeeded = succeeded;
+            Message = message;
+        }
     }
 }

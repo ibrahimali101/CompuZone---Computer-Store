@@ -1,7 +1,7 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using CompuZone.Application.Features.Commands;
 using CompuZone.Application.Features.Commands.CategoryCommands;
-using CompuZone.Application.Localization;
+
 using CompuZone.Application.Mapping;
 using System;
 using System.Collections.Generic;
@@ -27,8 +27,6 @@ namespace CompuZone.Application
             });
 
             services.AddAutoMapper(option => option.AddProfile(new MappingProfile()));
-            services.AddSingleton<LocalizationService>();
-            services.AddSingleton<SharedLocalizationService>();
 
             return services;
         }

@@ -10,7 +10,5 @@ namespace CompuZone.Domain.AccountsDtos
     {
         public string UserName { get; set; }
         public string Password { get; set; }
-
-        public LanguageRequest Language { get; set; }
     }
 }

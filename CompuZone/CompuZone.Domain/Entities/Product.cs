@@ -10,16 +10,6 @@ namespace CompUZone.Models;
 [Table("ProductCatalog")]
 public partial class Product : NamedEntity
 {
-    [Key]
-    [Column("ProductID")]
-    public int ProductId { get; set; }
-
-    [StringLength(100)]
-    public string ProductName { get; set; } = null!;
-
-    [StringLength(500)]
-    public string? Description { get; set; }
-
     [Column(TypeName = "smallmoney")]
     public decimal Price { get; set; }
 
@@ -29,12 +19,9 @@ public partial class Product : NamedEntity
     public int CategoryId { get; set; }
 
     [ForeignKey("CategoryId")]
-    [InverseProperty("ProductCatalogs")]
+    [InverseProperty("Products")]
     public virtual Category Category { get; set; } = null!;
 
     [InverseProperty("Product")]
     public virtual ICollection<OrderItem> OrderItems { get; set; } = new List<OrderItem>();
-
-    [StringLength(200)]
-    public string ProductImage { get; set; }
 }

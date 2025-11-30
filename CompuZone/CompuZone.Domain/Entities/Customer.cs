@@ -11,9 +11,6 @@ namespace CompUZone.Models;
 [Index("Email", Name = "UQ__Customer__A9D10534EBDAF9EA", IsUnique = true)]
 public partial class Customer : BaseEntity
 {
-    [Key]
-    [Column("CustomerID")]
-    public int CustomerID { get; set; }
 
     [StringLength(100)]
     public string Full_name { get; set; } = null!;

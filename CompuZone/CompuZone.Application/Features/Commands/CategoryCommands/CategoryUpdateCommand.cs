@@ -5,7 +5,6 @@ using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
 using CompuZone.Application.Exceptions;
-using CompuZone.Application.Localization;
 using CompuZone.Domain.Entities;
 using CompuZone.Domain.Interfaces;
 using CompUZone.Models;
@@ -16,35 +15,28 @@ namespace CompuZone.Application.Features.Commands.CategoryCommands
     public class CategoryUpdateCommand : IRequest<bool>
     {
         public int ID { get; set; }
-        public string NameAr { get; set; }
-        public string NameEn { get; set; }
-        public string DescriptionAr { get; set; }
-        public string DescriptionEn { get; set; }
+        public string Name { get; set; }
+        public string Description { get; set; }
     }
     public class CategoryUpdateCommandHandler : IRequestHandler<CategoryUpdateCommand, bool>
     {
         private readonly IGenericRepository<Category> _repository;
         private readonly IMapper _mapper;
         private readonly ICurrentUserService _currentUser;
-        private readonly SharedLocalizationService _localizationService;
 
         public CategoryUpdateCommandHandler(IGenericRepository<Category> repository, IMapper mapper
-            , ICurrentUserService currentUser
-            , SharedLocalizationService localizationService)
+            , ICurrentUserService currentUser)
         {
             _repository = repository;
             _mapper = mapper;
             _currentUser = currentUser;
-            _localizationService = localizationService;
         }
         public async Task<bool> Handle(CategoryUpdateCommand request, CancellationToken cancellationToken)
         {
             var category = await _repository.GetByIDAsync(request.ID);
 
             if (category == null)
-                throw new NotFoundException(
-                      _localizationService.GetString(SharedLocalizationKeys.Exceptions_Not_Found, _currentUser.Language)
-                  );
+                throw new NotFoundException($"Category with ID {request.ID} was not found.");
 
             var categoryEntity =  _mapper.Map(request, category);
             _repository.UpdateAsync(categoryEntity);

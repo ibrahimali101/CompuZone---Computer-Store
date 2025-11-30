@@ -13,14 +13,10 @@ namespace CompuZone.Application.Features.Commands.ProductCommands
 {
     public class ProductAddCommand : IRequest<bool>
     {
-        public string NameAr { get; set; }
-        public string NameEn { get; set; }
-        public string DescriptionAr { get; set; }
-        public string DescriptionEn { get; set; }
-        public double BuyPrice { get; set; }
-        public double SalePrice { get; set; }
+        public string Name { get; set; }
+        public string Description { get; set; }
+        public double Price { get; set; }
         public double Quantity { get; set; }
-        public int MinQuantity { get; set; }
 
         public int? CategoryID { get; set; }
     }

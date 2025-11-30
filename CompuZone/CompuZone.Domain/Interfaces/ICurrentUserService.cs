@@ -11,7 +11,5 @@ namespace CompuZone.Domain.Interfaces
         public string UserId { get; }
         public string UserName { get; }
         public int? StockId { get; }
-
-        public LanguageRequest Language { get;}
     }
 }

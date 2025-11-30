@@ -11,10 +11,6 @@ namespace CompUZone.Models;
 [Index("CategoryName", Name = "UQ__ProductC__8517B2E054CE9FA8", IsUnique = true)]
 public partial class Category : NamedEntity
 {
-    [Key]
-    [Column("CategoryID")]
-    public int CategoryId { get; set; }
-
     [StringLength(100)]
     public string CategoryName { get; set; } = null!;
 

@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using MediatR;
 using CompuZone.Application.Exceptions;
-using CompuZone.Application.Localization;
 using CompuZone.Domain.Entities;
 using CompuZone.Domain.Interfaces;
 using System;
@@ -16,15 +15,11 @@ namespace CompuZone.Application.Features.Commands.ProductCommands
     public class ProductUpdateCommand : IRequest<bool>
     {
         public int ID { get; set; }
-        public string NameAr { get; set; }
-        public string NameEn { get; set; }
-        public string DescriptionAr { get; set; }
-        public string DescriptionEn { get; set; }
+        public string Name { get; set; }
+        public string Description { get; set; }
 
-        public double BuyPrice { get; set; }
-        public double SalePrice { get; set; }
+        public double Price { get; set; }
         public double Quantity { get; set; }
-        public int MinQuantity { get; set; }
 
         public int? ProductID { get; set; }
     }
@@ -33,25 +28,20 @@ namespace CompuZone.Application.Features.Commands.ProductCommands
         private readonly IGenericRepository<Product> _repository;
         private readonly IMapper _mapper;
         private readonly ICurrentUserService _currentUser;
-        private readonly SharedLocalizationService _localizationService;
 
         public ProductUpdateCommandHandler(IGenericRepository<Product> repository, IMapper mapper
-            , ICurrentUserService currentUser
-            , SharedLocalizationService localizationService)
+            , ICurrentUserService currentUser)
         {
             _repository = repository;
             _mapper = mapper;
             _currentUser = currentUser;
-            _localizationService = localizationService;
         }
         public async Task<bool> Handle(ProductUpdateCommand request, CancellationToken cancellationToken)
         {
             var Product = await _repository.GetByIDAsync(request.ID);
 
             if (Product == null)
-                throw new NotFoundException(
-                      _localizationService.GetString(SharedLocalizationKeys.Exceptions_Not_Found, _currentUser.Language)
-                  );
+                throw new NotFoundException($"Product with ID {request.ID} was not found.");
 
             var ProductEntity =  _mapper.Map(request, Product);
             _repository.UpdateAsync(ProductEntity);

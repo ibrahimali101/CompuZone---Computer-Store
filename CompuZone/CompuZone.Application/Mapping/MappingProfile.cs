@@ -11,7 +11,6 @@ using CompuZone.Application.Features.Commands.ProductCommands;
 using CompuZone.Application.Features.Dtos.Responses.CategoryResponses;
 using CompuZone.Application.Features.Dtos.Responses.CustomerResponses;
 using CompuZone.Application.Features.Dtos.Responses.ProductResponses;
-using CompuZone.Application.Features.Dtos.Responses.StockResponses;
 using CompuZone.Domain.Entities;
 using CompUZone.Models;
 

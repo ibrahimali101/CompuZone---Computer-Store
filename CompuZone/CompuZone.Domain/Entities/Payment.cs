@@ -2,17 +2,14 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using CompuZone.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace CompUZone.Models;
 
 [Index("OrderId", Name = "UQ__Payments__C3905BAEF47B07CA", IsUnique = true)]
-public partial class Payment
+public partial class Payment : BaseEntity
 {
-    [Key]
-    [Column("PaymentID")]
-    public int PaymentId { get; set; }
-
     [Column("OrderID")]
     public int OrderId { get; set; }
 

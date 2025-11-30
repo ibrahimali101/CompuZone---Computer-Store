@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace CompUZone.Controllers
 {
-    [Route("api/[controller]/[action]")]
+    [Route("api/[controller]")]
     [ApiController]
     [Authorize]
     public class OrdersController : ControllerBase
@@ -21,13 +21,12 @@ namespace CompUZone.Controllers
         }
 
         [HttpGet("{Id}")]
-        //public async Task<IActionResult> GetByIdAsync(int Id)
-        //{
-        //    return Ok(await _mediator.Send(new GetOrderByIdQuery { Id = Id }));
-        //}
-
+        public async Task<IActionResult> GetByIdAsync(int Id)
+        {
+            return Ok(await _mediator.Send(new GetOrderByIdQuery { Id = Id }));
+        }
         [HttpGet]
-        public async Task<IActionResult> GetAllAsync([FromQuery] GetCategoriesQuery query)
+        public async Task<IActionResult> GetAllAsync([FromQuery] GetOrdersQuery query)
         {
             return Ok(await _mediator.Send(query));
         }

@@ -8,42 +8,32 @@ using Microsoft.EntityFrameworkCore;
 
 namespace CompUZone.Controllers
 {
-    [Route("api/[controller]/[action]")]
+    [Route("api/[controller]")]
     [ApiController]
     [Authorize]
-    public class ProductsController : ControllerBase
+    public class ProductsController : AppBaseController
     {
-        private readonly IMediator _mediator;
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetById(int id)
+            => Ok(await _mediator.Send(new GetProductByIdQuery { Id = id }));
 
-        public ProductsController(IMediator mediator)
-        {
-            _mediator = mediator;
-        }
-
-        [HttpGet("{Id}")]
-        public async Task<IActionResult> GetByIdAsync(int Id)
-        {
-            return Ok(await _mediator.Send(new GetProductByIdQuery { Id = Id }));
-        }
         [HttpGet]
-        public async Task<IActionResult> GetAllAsync([FromQuery] GetProductsQuery query)
-        {
-            return Ok(await _mediator.Send(query));
-        }
+        public async Task<IActionResult> GetAll([FromQuery] GetProductsQuery query)
+            => Ok(await _mediator.Send(query));
+
         [HttpPost]
-        public async Task<IActionResult> AddAsync(ProductAddCommand command)
-          => Ok(await _mediator.Send(command));
+        public async Task<IActionResult> Create(ProductAddCommand command)
+            => Ok(await _mediator.Send(command));
 
-        [HttpPut]
-        public async Task<IActionResult> UpdateAsync(ProductUpdateCommand command)
-         => Ok(await _mediator.Send(command));
-
-        [HttpDelete("{Id}")]
-        public async Task<IActionResult> ArchivedAsync(int Id)
-        => Ok(await _mediator.Send(new ProductArchivedCommand { ID = Id }));
-
-        [HttpPost("{Id}")]
-        public async Task<IActionResult> UnArchivedAsync(int Id)
-        => Ok(await _mediator.Send(new ProductUnArchivedCommand { ID = Id }));
+        [HttpPut("{id}")]
+        public async Task<IActionResult> Update(int id, ProductUpdateCommand command)
+        {
+            if (id != command.ID)
+            {
+                return BadRequest("Product ID mismatch");
+            }
+            return Ok(await _mediator.Send(command));
+        }
+        [HttpDelete("{id}")]
     }
 }

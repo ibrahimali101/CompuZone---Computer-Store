@@ -11,30 +11,31 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Text;
 using System.Threading.Tasks;
-using CompUZone.Models;
+using CompUZone.Models; // Ensure this namespace matches your Customer entity location
 
 namespace CompuZone.Application.Features.Queries.CustomerQueries
 {
     public enum CustomerSortBy
     {
-        NameAr = 1,
-        NameEn = 2,
-        PhoneNumber = 3,
-        Address = 4,
-        BirthDate = 5,
+        FullName = 1,
+        Email = 2,
+        Username = 3,
+        Phone = 4,
+        Address = 5,
+        DateOfBirth = 6,
     }
-    public class GetCustomersQuery  : 
+
+    public class GetCustomersQuery :
         PaginateBaseParamter,
         IRequest<Response<PaginatedList<CustomerReadReponseDto>>>
     {
-
         public string? TextSeach { get; set; }
         public CustomerSortBy? OrderBy { get; set; }
         public bool? IsArchived { get; set; }
         public bool IsDesc { get; set; }
     }
+
     public class GetCustomersQueryHandler : IRequestHandler<GetCustomersQuery, Response<PaginatedList<CustomerReadReponseDto>>>
     {
         private readonly IGenericRepository<Customer> _repository;
@@ -45,38 +46,44 @@ namespace CompuZone.Application.Features.Queries.CustomerQueries
             _repository = repository;
             _mapper = mapper;
         }
+
         public async Task<Response<PaginatedList<CustomerReadReponseDto>>> Handle(GetCustomersQuery request, CancellationToken cancellationToken)
         {
-
             var query = _repository.GetAllAsync()
                               .IF(request.IsArchived != null, a => a.IArchived == request.IsArchived)
                               .Where(a =>
-                                         a.NameAr.ToLower().Contains(request.TextSeach.ToLower()) ||
-                                         a.NameEn.ToLower().Contains(request.TextSeach.ToLower()) ||
-                                         a.PhoneNumber.ToLower().Contains(request.TextSeach.ToLower()) ||
-                                         a.Address.ToLower().Contains(request.TextSeach.ToLower()) 
+                                         // Updated search to match new Entity properties
+                                         a.Full_name.ToLower().Contains(request.TextSeach.ToLower()) ||
+                                         a.Email.ToLower().Contains(request.TextSeach.ToLower()) ||
+                                         a.Username.ToLower().Contains(request.TextSeach.ToLower()) ||
+                                         a.Phone.ToLower().Contains(request.TextSeach.ToLower()) ||
+                                         a.Address.ToLower().Contains(request.TextSeach.ToLower())
                               )
                               .OrderGroupBy(new List<(bool condition, Expression<Func<Customer, object>>)>
                               {
-                                 ( CustomerSortBy.NameAr == request.OrderBy ,  a => a.NameAr),
-                                 ( CustomerSortBy.NameEn == request.OrderBy ,  a => a.NameEn),
-                                 ( CustomerSortBy.Address == request.OrderBy ,  a => a.Address),
-                                 ( CustomerSortBy.PhoneNumber == request.OrderBy ,  a => a.PhoneNumber),
-                                 ( CustomerSortBy.BirthDate == request.OrderBy ,  a => a.BirthDate),
+                                 // Updated sort logic
+                                 ( CustomerSortBy.FullName == request.OrderBy ,  a => a.Full_name),
+                                 ( CustomerSortBy.Email == request.OrderBy ,     a => a.Email),
+                                 ( CustomerSortBy.Username == request.OrderBy ,  a => a.Username),
+                                 ( CustomerSortBy.Address == request.OrderBy ,   a => a.Address),
+                                 ( CustomerSortBy.Phone == request.OrderBy ,     a => a.Phone),
+                                 ( CustomerSortBy.DateOfBirth == request.OrderBy,a => a.DateOfBirth),
                               }, IsDesc: true)
                               .Select(a => new CustomerReadReponseDto
                               {
-                                  ID = a.ID,
-                                  NameAr = a.NameAr,
-                                  NameEn = a.NameEn,
+                                  // Assuming DTO is also updated to match these fields
+                                  ID = a.ID, // Mapping CustomerID
+                                  FullName = a.Full_name,
+                                  Email = a.Email,
                                   Address = a.Address,
-                                  BirthDate = a.BirthDate,
-                                  PhoneNumber = a.PhoneNumber,
+                                  DateOfBirth = a.DateOfBirth,
+                                  Phone = a.Phone,
+                                  Username = a.Username,
                                   IsArchived = a.IArchived
                               });
 
             var count = query.Count();
-            var response  = query.Paginate(request.PageNumber , request.PageSize);
+            var response = query.Paginate(request.PageNumber, request.PageSize);
 
             return new Response<PaginatedList<CustomerReadReponseDto>>
             (

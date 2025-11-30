@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using MediatR;
 using CompuZone.Application.Exceptions;
-using CompuZone.Application.Localization;
 using CompuZone.Domain.Entities;
 using CompuZone.Domain.Interfaces;
 using System;
@@ -22,25 +21,20 @@ namespace CompuZone.Application.Features.Commands.CustomerCommands
         private readonly IGenericRepository<Customer> _repository;
         private readonly IMapper _mapper;
         private readonly ICurrentUserService _currentUser;
-        private readonly SharedLocalizationService _localizationService;
 
         public CustomerArchivedCommandHandler(IGenericRepository<Customer> repository, IMapper mapper
-            , ICurrentUserService currentUser
-            , SharedLocalizationService localizationService)
+            , ICurrentUserService currentUser)
         {
             _repository = repository;
             _mapper = mapper;
             _currentUser = currentUser;
-            _localizationService = localizationService;
         }
         public async Task<bool> Handle(CustomerArchivedCommand request, CancellationToken cancellationToken)
         {
             var Customer =  await _repository.GetByIDAsync(request.ID);
 
             if (Customer == null)
-                throw new NotFoundException(
-                       _localizationService.GetString(SharedLocalizationKeys.Exceptions_Not_Found, _currentUser.Language)
-                   );
+                throw new NotFoundException($"Customer with ID {request.ID} was not found.");
 
             _repository.ArchivedAsync(Customer);
             var status = await _repository.SaveChangesAsync();

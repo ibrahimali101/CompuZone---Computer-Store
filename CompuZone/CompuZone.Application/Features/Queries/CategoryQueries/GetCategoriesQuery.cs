@@ -1,39 +1,36 @@
-﻿using AutoMapper;
-using MediatR;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Linq.Expressions;
+using System.Threading.Tasks;
+using AutoMapper;
 using CompuZone.Application.Extentions;
 using CompuZone.Application.Features.Dtos.Responses.CategoryResponses;
 using CompuZone.Application.Wapper;
 using CompuZone.Domain;
-using CompuZone.Domain.Entities;
 using CompuZone.Domain.Extentions;
-using CompuZone.Domain.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
+using CompuZone.Domain.Interfaces; // Updated to use the Interface if needed, or keep Generic
 using CompUZone.Models;
+using MediatR;
 
 namespace CompuZone.Application.Features.Queries
 {
     public enum CategorySortBy
     {
-        NameAr = 1,
-        NameEn = 2,
-        DescriptionAr = 3,
-        DescriptionEn = 4
+        Name = 1,
+        Id = 2
     }
-    public class GetCategoriesQuery  : 
+
+    public class GetCategoriesQuery :
         PaginateBaseParamter,
         IRequest<Response<PaginatedList<CategoryReadReponseDto>>>
     {
-
         public string? TextSeach { get; set; }
         public CategorySortBy? OrderBy { get; set; }
         public bool? IsArchived { get; set; }
         public bool IsDesc { get; set; }
     }
+
     public class GetCategoriesQueryHandler : IRequestHandler<GetCategoriesQuery, Response<PaginatedList<CategoryReadReponseDto>>>
     {
         private readonly IGenericRepository<Category> _repository;
@@ -44,31 +41,29 @@ namespace CompuZone.Application.Features.Queries
             _repository = repository;
             _mapper = mapper;
         }
+
         public async Task<Response<PaginatedList<CategoryReadReponseDto>>> Handle(GetCategoriesQuery request, CancellationToken cancellationToken)
         {
-
             var query = _repository.GetAllAsync()
-                              .IF(request.IsArchived != null, a => a.IArchived == request.IsArchived)
-                              .FilterText(request.TextSeach)
-                              .OrderGroupBy(new List<(bool condition, Expression<Func<Category, object>>)>
-                              {
-                                 ( CategorySortBy.NameAr == request.OrderBy ,  a => a.NameAr),
-                                 ( CategorySortBy.NameEn == request.OrderBy ,  a => a.NameEn),
-                                 ( CategorySortBy.DescriptionAr == request.OrderBy ,  a => a.DescriptionAr),
-                                 ( CategorySortBy.DescriptionEn == request.OrderBy ,  a => a.DescriptionEn),
-                              }, IsDesc: true)
-                              .Select(a => new CategoryReadReponseDto
-                              {
-                                  ID = a.ID,
-                                  NameAr = a.NameAr,
-                                  NameEn = a.NameEn,
-                                  DescriptionAr = a.DescriptionAr,
-                                  DescriptionEn = a.DescriptionEn,
-                                  IsArchived = a.IArchived
-                              });
+                  .IF(request.IsArchived != null, a => a.IArchived == request.IsArchived)
+                  // Updated Search to only look at CategoryName
+                  .Where(a => a.CategoryName.ToLower().Contains(request.TextSeach.ToLower()))
+                  .OrderGroupBy(new List<(bool condition, Expression<Func<Category, object>>)>
+                  {
+                     // Updated Sort to match new Entity
+                     ( CategorySortBy.Name == request.OrderBy ,  a => a.CategoryName),
+                     ( CategorySortBy.Id == request.OrderBy ,    a => a.ID),
+                  }, IsDesc: true)
+                  .Select(a => new CategoryReadReponseDto
+                  {
+                      // IMPORTANT: I am assuming your DTO has also been updated to have just 'ID' and 'Name'
+                      ID = a.ID,
+                      Name = a.CategoryName,
+                      IsArchived = a.IArchived
+                  });
 
             var count = query.Count();
-            var response  = query.Paginate(request.PageNumber , request.PageSize);
+            var response = query.Paginate(request.PageNumber, request.PageSize);
 
             return new Response<PaginatedList<CategoryReadReponseDto>>
             (

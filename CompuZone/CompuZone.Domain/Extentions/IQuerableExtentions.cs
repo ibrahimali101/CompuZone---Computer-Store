@@ -27,10 +27,8 @@ namespace CompuZone.Domain.Extentions
                 return source;
 
              return source.Where(a =>
-                                          a.NameAr.ToLower().Contains(TextSeach.ToLower()) ||
-                                          a.NameEn.ToLower().Contains(TextSeach.ToLower()) ||
-                                          a.DescriptionAr.ToLower().Contains(TextSeach.ToLower()) ||
-                                          a.DescriptionEn.ToLower().Contains(TextSeach.ToLower())
+                                          a.Name.ToLower().Contains(TextSeach.ToLower()) ||
+                                          a.Description.ToLower().Contains(TextSeach.ToLower())
              );
 
         }

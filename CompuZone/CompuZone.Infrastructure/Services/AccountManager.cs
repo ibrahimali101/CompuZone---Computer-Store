@@ -27,11 +27,11 @@ namespace CompuZone.Infrastructure.Services
             UserManager<ApplicaitonUser> userManager,
             RoleManager<IdentityRole> roleManager,
             IConfiguration configuration)
-        {
-            _userManager = userManager;
-            _roleManager = roleManager;
-            _configuration = configuration;
-        }
+            {
+                _userManager = userManager;
+                _roleManager = roleManager;
+                _configuration = configuration;
+            }
 
         public async Task<bool> AssignRoleToUser(AssignRoleDto assignRoleDto)
         {
@@ -123,30 +123,39 @@ namespace CompuZone.Infrastructure.Services
 
         public async Task<AuthUserResponseDto> LoginAsync(LoginDto loginDto)
         {
-            var user = await _userManager.FindByNameAsync(loginDto.UserName);
-            //var user = await _userManager.FindByEmailAsync(loginDto.Email);
+            ApplicaitonUser user = null;
 
+            // 1. Smart Lookup: Check by Email first if input contains '@'
+            if (loginDto.UserName.Contains("@"))
+            {
+                user = await _userManager.FindByEmailAsync(loginDto.UserName);
+            }
+
+            // 2. Fallback: Check by Username if not found by email
+            if (user == null)
+            {
+                user = await _userManager.FindByNameAsync(loginDto.UserName);
+            }
+
+            // Account does not exist
             if (user == null)
                 return null;
 
-            var isValid = await _userManager.CheckPasswordAsync(user, loginDto.Password);
-            if (!isValid)
+            // 3. Verify Password
+            if (!await _userManager.CheckPasswordAsync(user, loginDto.Password))
                 return null;
 
-            var claims = await _userManager.GetClaimsAsync(user);
-            await _userManager.AddClaimAsync( user,new Claim("Language", loginDto.Language.ToString()));
-            // await _userManager.ReplaceClaimAsync(user, claims.FirstOrDefault(a => a.Type == "Language"),new Claim("Language",loginDto.Language.ToString()));
-            //Generate Token
+            // 4. Get Existing Claims (Roles, etc.) directly from DB
+            // We are NO LONGER adding/removing the Language claim here.
             var userClaims = await _userManager.GetClaimsAsync(user);
 
-            var token = GenerateToken(userClaims.ToList());
-
+            // 5. Generate Response
             return new AuthUserResponseDto
             {
                 UserId = user.Id,
                 UserName = user.UserName,
-                Language = loginDto.Language,
-                Token = token
+                // We just pass the language back to the UI, but we don't save it in the DB.
+                Token = GenerateToken(userClaims.ToList())
             };
         }
 
@@ -155,7 +164,7 @@ namespace CompuZone.Infrastructure.Services
             ApplicaitonUser user = new ApplicaitonUser();
             user.Email = registerDto.Email;
             user.UserName = registerDto.UserName;
-            //user.PasswordHash = registerDto.Password;
+            user.PasswordHash = registerDto.Password;
 
             var IdentityResult = await _userManager.CreateAsync(user, registerDto.Password);
 
@@ -184,7 +193,7 @@ namespace CompuZone.Infrastructure.Services
 
             user.Email = updateAccountDto.Email;
             user.UserName = updateAccountDto.UserName;
-            // user.PasswordHash = PasswordHasher.HashPassword(user, updateAccountDto.Password);
+            //user.PasswordHash = PasswordHasher.HashPassword(user, updateAccountDto.Password);
 
             var isUpdated = await _userManager.UpdateAsync(user);
 
@@ -224,7 +233,7 @@ namespace CompuZone.Infrastructure.Services
 
             JwtSecurityToken jwtSecurityToken = new JwtSecurityToken(
                 claims: claims,
-                expires: DateTime.Now.AddMonths(10),
+                expires: DateTime.Now.AddMinutes(20),
                 signingCredentials: signingCredentials
                 );
 

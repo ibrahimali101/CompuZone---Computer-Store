@@ -14,8 +14,7 @@ namespace CompuZone.Application.Features.Commands.CustomerCommands
 {
     public class CustomerAddCommand : IRequest<bool>
     {
-        public string NameAr { get; set; }
-        public string NameEn { get; set; }
+        public string Name { get; set; }
         public string PhoneNumber { get; set; }
         public string Address { get; set; }
         public DateTime BirthDate { get; set; }

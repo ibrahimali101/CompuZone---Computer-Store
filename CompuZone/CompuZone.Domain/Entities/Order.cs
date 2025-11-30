@@ -9,10 +9,6 @@ namespace CompUZone.Models;
 
 public partial class Order : BaseEntity
 {
-    [Key]
-    [Column("OrderID")]
-    public int OrderId { get; set; }
-
     [Column("CustomerID")]
     public int CustomerId { get; set; }
 

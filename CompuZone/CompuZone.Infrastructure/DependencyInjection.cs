@@ -34,13 +34,14 @@ namespace CompuZone.Infrastructure
             services.AddScoped<IAccountManager, AccountManager>();
             services.AddScoped<ICurrentUserService, CurrentUserService>();
             services.AddHttpContextAccessor();
+
             services.AddAuthentication(option =>
             {
-                option.DefaultAuthenticateScheme = "mahmoud";
-                option.DefaultChallengeScheme = "mahmoud";
-            }).AddJwtBearer("mahmoud", builder =>
+                option.DefaultAuthenticateScheme = "word";
+                option.DefaultChallengeScheme = "word";
+            }).AddJwtBearer("123", builder =>
             {
-                string secutirykey = "afslkfskwemwpe,cwpcpwrwepkrcwprkwpecmwesc.f,m/.zcm/f.dzcmf/";
+                string secutirykey = "@@@ibrahim@@123";
                 var securityKeyByte = Encoding.ASCII.GetBytes(secutirykey);
                 SecurityKey securityKey = new SymmetricSecurityKey(securityKeyByte);
 

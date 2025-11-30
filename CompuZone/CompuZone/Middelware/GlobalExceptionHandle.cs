@@ -1,5 +1,4 @@
 ﻿using CompuZone.Application.Exceptions;
-using CompuZone.Application.Localization;
 using CompuZone.Application.Wapper;
 
 namespace CompuZone.API.Middelware
@@ -31,28 +30,23 @@ namespace CompuZone.API.Middelware
                 {
                     case UnauthorizedAccessException:
                         statusCode = StatusCodes.Status401Unauthorized;
-                        response = new Response<object> { Data = null, Message = ex.Message, IsSucceded = false };
+                        response = new Response<object> { Data = null, Message = ex.Message, Succeeded = false };
                         break;
 
                     case NotFoundException:
                         statusCode = StatusCodes.Status404NotFound;
-                        response = new Response<object> { Data = null, Message = ex.Message, IsSucceded = false };
-                        break;
-
-                    case BusinessException:
-                        statusCode = StatusCodes.Status400BadRequest;
-                        response = new Response<object> { Data = null, Message = ex.Message, IsSucceded = false };
+                        response = new Response<object> { Data = null, Message = ex.Message, Succeeded = false };
                         break;
 
 
                     case TimeoutException:
                         statusCode = StatusCodes.Status408RequestTimeout;
-                        response = new Response<object> { Data = null, Message = ex.Message, IsSucceded = false };
+                        response = new Response<object> { Data = null, Message = ex.Message, Succeeded = false };
                         break;
 
                     default:
                         statusCode = StatusCodes.Status500InternalServerError;
-                        response = new Response<object> { Data = null, Message = ex.Message, IsSucceded = false };
+                        response = new Response<object> { Data = null, Message = ex.Message, Succeeded = false };
                         break;
                 }
 

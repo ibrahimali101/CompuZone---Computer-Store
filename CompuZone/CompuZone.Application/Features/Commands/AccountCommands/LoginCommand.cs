@@ -14,7 +14,6 @@ namespace CompuZone.Application.Features.Commands.AccountCommands
     {
         public string UserName { get; set; }
         public string Password { get; set; }
-        public LanguageRequest Language { get; set; }
     }
     public class LoginCommandHandler : IRequestHandler<LoginCommand, Response<AuthUserResponseDto>>
     {
@@ -30,7 +29,6 @@ namespace CompuZone.Application.Features.Commands.AccountCommands
             {
                 UserName = request.UserName,
                 Password = request.Password,
-                Language = request.Language
             });
 
             return new Response<AuthUserResponseDto> (response);
