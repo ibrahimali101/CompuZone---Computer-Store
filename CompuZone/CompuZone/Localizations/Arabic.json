@@ -1,0 +1,7 @@
+{
+  "Exceptions_Not_Found": "العنصر اللي طلبته مش موجود.",
+  "Exceptions_Business": "البيانات اللي دخلتها مش صحيحة.",
+  "Exceptions-Unauthorized": "أنت مش مسموح ليك.",
+  "Exceptions_Internal_Server": "حصل خطأ.",
+  "Exceptions_TimeOut": "السيرفيس غير متوفرة."
+}

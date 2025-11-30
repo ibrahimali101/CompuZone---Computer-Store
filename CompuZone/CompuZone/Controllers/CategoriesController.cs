@@ -1,4 +1,7 @@
-﻿using CompUZone.Models;
+﻿using CompuZone.Application.Features.Commands;
+using CompuZone.Application.Features.Commands.CategoryCommands;
+using CompuZone.Application.Features.Queries;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -8,18 +11,37 @@ namespace CompUZone.Controllers
     [ApiController]
     public class CategoriesController : ControllerBase
     {
-        private readonly CompuZoneContext _context;
+        private readonly IMediator _mediator;
 
-        public CategoriesController(CompuZoneContext context)
+        public CategoriesController(IMediator mediator)
         {
-            _context = context;
+            _mediator = mediator;
         }
 
-        // GET: api/Categories
+        [HttpGet("{Id}")]
+        public async Task<IActionResult> GetByIdAsync(int Id)
+        {
+            return Ok(await _mediator.Send(new GetCategoryByIdQuery { Id = Id }));
+        }
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<ProductCategory>>> GetCategories()
+        public async Task<IActionResult> GetAllAsync([FromQuery] GetCategoriesQuery query)
         {
-            return await _context.ProductCategories.ToListAsync();
+            return Ok(await _mediator.Send(query));
         }
+        [HttpPost]
+        public async Task<IActionResult> AddAsync(CategoryAddCommand command)
+          => Ok(await _mediator.Send(command));
+
+        [HttpPut]
+        public async Task<IActionResult> UpdateAsync(CategoryUpdateCommand command)
+         => Ok(await _mediator.Send(command));
+
+        [HttpDelete("{Id}")]
+        public async Task<IActionResult> ArchivedAsync(int Id)
+        => Ok(await _mediator.Send(new CategoryArchivedCommand { ID = Id }));
+
+        [HttpPost("{Id}")]
+        public async Task<IActionResult> UnArchivedAsync(int Id)
+        => Ok(await _mediator.Send(new CategoryUnArchivedCommand { ID = Id }));
     }
 }

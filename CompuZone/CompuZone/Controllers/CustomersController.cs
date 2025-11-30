@@ -1,21 +1,21 @@
-﻿using CompuZone.Application.Features.Commands.ProductCommands;
-using CompuZone.Application.Features.Queries.ProductQueries;
+﻿using CompuZone.Application.Features.Commands.CustomerCommands;
+using CompuZone.Application.Features.Queries.CustomerQueries;
 using CompUZone.Models;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
-namespace CompUZone.Controllers
+namespace CompuZone.Controllers
 {
     [Route("api/[controller]/[action]")]
     [ApiController]
     [Authorize]
-    public class ProductsController : ControllerBase
+    public class CustomersController : ControllerBase
     {
         private readonly IMediator _mediator;
 
-        public ProductsController(IMediator mediator)
+        public CustomersController(IMediator mediator)
         {
             _mediator = mediator;
         }
@@ -23,27 +23,28 @@ namespace CompUZone.Controllers
         [HttpGet("{Id}")]
         public async Task<IActionResult> GetByIdAsync(int Id)
         {
-            return Ok(await _mediator.Send(new GetProductByIdQuery { Id = Id }));
+            return Ok(await _mediator.Send(new GetCustomerByIdQuery { Id = Id }));
         }
+
         [HttpGet]
-        public async Task<IActionResult> GetAllAsync([FromQuery] GetProductsQuery query)
+        public async Task<IActionResult> GetAllAsync([FromQuery] GetCustomersQuery query)
         {
             return Ok(await _mediator.Send(query));
         }
         [HttpPost]
-        public async Task<IActionResult> AddAsync(ProductAddCommand command)
+        public async Task<IActionResult> AddAsync(CustomerAddCommand command)
           => Ok(await _mediator.Send(command));
 
         [HttpPut]
-        public async Task<IActionResult> UpdateAsync(ProductUpdateCommand command)
+        public async Task<IActionResult> UpdateAsync(CustomerUpdateCommand command)
          => Ok(await _mediator.Send(command));
 
         [HttpDelete("{Id}")]
         public async Task<IActionResult> ArchivedAsync(int Id)
-        => Ok(await _mediator.Send(new ProductArchivedCommand { ID = Id }));
+        => Ok(await _mediator.Send(new CustomerArchivedCommand { ID = Id }));
 
         [HttpPost("{Id}")]
         public async Task<IActionResult> UnArchivedAsync(int Id)
-        => Ok(await _mediator.Send(new ProductUnArchivedCommand { ID = Id }));
+        => Ok(await _mediator.Send(new CustomerUnArchivedCommand { ID = Id }));
     }
 }

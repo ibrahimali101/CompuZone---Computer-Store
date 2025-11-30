@@ -1,0 +1,7 @@
+{
+  "Exceptions_Not_Found": "The item you requested is not found.",
+  "Exceptions_Business": "The data you entered is incorrect.",
+  "Exceptions-Unauthorized": "You are not authorized.",
+  "Exceptions_Internal_Server": "An error occurred.",
+  "Exceptions_TimeOut": "The service is unavailable."
+}
