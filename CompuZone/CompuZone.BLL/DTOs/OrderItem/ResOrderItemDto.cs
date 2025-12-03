@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 
 namespace CompuZone.BLL.DTOs
 {
-    public class OrderItemDto
+    public class ResOrderItemDto
     {
         public int ProductID { get; set; }
-        public string ProductName { get; set; }
-        public decimal UnitPrice { get; set; } // Price at moment of purchase
+        public string ProductName { get; set; } // Flattened from Product entity
+        public decimal Price { get; set; } // Unit Price snapshot
         public int Quantity { get; set; }
-        public decimal LineTotal { get; set; } // Quantity * UnitPrice
+        public decimal Total { get; set; } // Calculated Total
     }
 }

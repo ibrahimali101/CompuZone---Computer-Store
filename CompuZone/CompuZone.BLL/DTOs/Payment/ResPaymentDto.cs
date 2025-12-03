@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using CompuZone.BLL.DTOs.Order;
 namespace CompuZone.BLL.DTOs.Payment
 {
-    public class PaymentDto
+    public class ResPaymentDto
     {
-        public string PaymentMethod { get; set; }
+        public int PaymentID { get; set; }
         public decimal Amount { get; set; }
+        public string PaymentMethod { get; set; }
         public DateTime TransactionDate { get; set; }
     }
 }

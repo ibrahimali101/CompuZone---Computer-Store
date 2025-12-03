@@ -11,8 +11,8 @@ namespace CompuZone.DAL.Data
     public class CompContext : DbContext
     {
         DbSet<Product> Products;
-        DbSet<Category> Categories;
-        DbSet<ProductImage> ProductImages;
+        DbSet<CategoryDto> Categories;
+        DbSet<ProductImageDto> ProductImages;
         DbSet<OrderItem> OrderItems;
         DbSet<Order> Orders;
         DbSet<Customer> Customers;

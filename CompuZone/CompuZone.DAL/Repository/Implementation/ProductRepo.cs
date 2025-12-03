@@ -9,12 +9,12 @@ using CompuZone.DAL.Entities;
 
 namespace CompuZone.DAL.Repository.Implementation
 {
-    public class ProductRepository : IProductRepository
+    public class ProductRepo : IProductRepo
     {
         private readonly CompContext _context; 
 
         // Constructor Injection: We ask for the DbContext here
-        public ProductRepository(CompContext context)
+        public ProductRepo(CompContext context)
         {
             _context = context;
         }

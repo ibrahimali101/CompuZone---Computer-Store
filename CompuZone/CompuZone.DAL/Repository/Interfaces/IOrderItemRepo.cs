@@ -1,0 +1,18 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using CompuZone.DAL.Entities;
+
+namespace CompuZone.DAL.Repository.Interfaces
+{
+    internal interface IOrderItemRepo
+    {
+        public IQueryable<OrderItem> GetAllAsync();
+        public Task<OrderItem?> GetByIdAsync(int id);
+        public Task<OrderItem?> AddAsync(OrderItem orderitem);
+        public Task<bool> UpdateAsync(OrderItem orderitem);
+        public Task<bool> DeleteAsync(int id);
+    }
+}

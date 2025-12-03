@@ -7,7 +7,7 @@ using CompuZone.DAL.Entities;
 
 namespace CompuZone.BLL.Interfaces
 {
-    public interface IProductRepository
+    public interface IProductRepo
     {
         public IQueryable<Product> GetAllAsync();
         public Task<Product?> GetByIdAsync(int id);

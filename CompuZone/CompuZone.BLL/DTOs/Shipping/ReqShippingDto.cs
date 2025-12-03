@@ -6,11 +6,8 @@ using System.Threading.Tasks;
 
 namespace CompuZone.BLL.DTOs.Shipping
 {
-    public class ShippingDto
+    public class ReqShippingDto
     {
-        public string TrackingNumber { get; set; }
-        public string Status { get; set; }
         public string Address { get; set; }
-        public DateTime EstimatedDelivery { get; set; }
     }
 }
