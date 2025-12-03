@@ -1,0 +1,6 @@
+@CompuZone.PL_HostAddress = http://localhost:5178
+
+GET {{CompuZone.PL_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
