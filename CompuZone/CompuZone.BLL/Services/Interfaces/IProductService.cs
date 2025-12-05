@@ -13,7 +13,8 @@ namespace CompuZone.BLL.Services.Interfaces
     {
         public Task<ResponseDto<List<ResProductDto>>> GetAllAsync();
         public Task<ResponseDto<ResProductDto>> CreateAsync(ReqProductDto dto);
-        public Task<ResponseDto<bool>> UpdateAsync(ReqProductDto dto);
+        public Task<ResponseDto<ResProductDto>> GetByIdAsync(int id);
+        public Task<ResponseDto<bool>> UpdateAsync(int id, ReqProductDto dto);
         public Task<ResponseDto<bool>> DeleteAsync(int id);
     }
 }

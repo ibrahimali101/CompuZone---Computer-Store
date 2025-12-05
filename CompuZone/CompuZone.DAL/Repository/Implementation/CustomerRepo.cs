@@ -26,23 +26,23 @@ namespace CompuZone.DAL.Repository.Implementation
 
         public async Task<bool> DeleteAsync(int id)
         {
-            context.Customers.Remove(customer);
+            context.Customers.Remove(context.Customers.SingleOrDefault(a => a.CustomerID == id)!);
             return await context.SaveChangesAsync() > 0;
         }
 
         public IQueryable<Customer> GetAllAsync()
         {
-            return context.Custoemrs.AsQueryable();
+            return context.Customers.Include(a => a.Orders).AsQueryable();
         }
 
         public async Task<Customer?> GetByIdAsync(int id)
         {
-            return await context.Customers.FirstOrDefault(c => c.Id == id);
+            return await context.Customers.SingleOrDefaultAsync(c => c.CustomerID == id);
         }
 
         public async Task<bool> UpdateAsync(Customer customer)
         {
-            Customer cust = await context.Customers.SingleOrDefault(customer.CustomerID);
+            context.Customers.Update(customer);
             return await context.SaveChangesAsync() > 0;
         }
     }

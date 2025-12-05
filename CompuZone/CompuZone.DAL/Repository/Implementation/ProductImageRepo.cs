@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using CompuZone.DAL.Data;
 using CompuZone.DAL.Entities;
 using CompuZone.DAL.Repository.Interfaces;
+using Microsoft.EntityFrameworkCore;
 
 namespace CompuZone.DAL.Repository.Implementation
 {
@@ -16,7 +17,6 @@ namespace CompuZone.DAL.Repository.Implementation
         {
             _context = context;
         }
-
         public async Task<ProductImage?> AddAsync(ProductImage productimage)
         {
             _context.ProductImages.AddAsync(productimage);
@@ -25,9 +25,9 @@ namespace CompuZone.DAL.Repository.Implementation
 
         public async Task<bool> DeleteAsync(int id)
         {
-            ProductImage prod = _context.ProductImages.SingleOrDefault(p => p.Id == id);
+            ProductImage prod = await _context.ProductImages.SingleOrDefaultAsync(p => p.ImageID == id);
 
-            _context.ProductImages.Remove(prod);
+            _context.ProductImages.Remove(prod!);
 
             return await _context.SaveChangesAsync() > 0;
         }
@@ -39,7 +39,7 @@ namespace CompuZone.DAL.Repository.Implementation
 
         public async Task<ProductImage?> GetByIdAsync(int id)
         {
-            return await _context.ProductImages.SingleOrDefaultAsync(id);
+            return await _context.ProductImages.SingleOrDefaultAsync(a => a.ImageID == id);
         }
 
         public async Task<bool> UpdateAsync(ProductImage productimage)

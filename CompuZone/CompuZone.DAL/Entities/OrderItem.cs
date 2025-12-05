@@ -12,7 +12,7 @@ namespace CompuZone.DAL.Entities
         public int OrderID { get; set; } // Foreign Key [cite: 66]
         public int ProductID { get; set; } // Foreign Key [cite: 65]
 
-        public int Quantity { get; set; } = 0; // [cite: 68]
+        public int Quantity { get; set; } = 1; // [cite: 68]
         public decimal Price { get; set; } // Unit price at time of purchase [cite: 67]
         public decimal Total => Price * Quantity; // Quantity * Price [cite: 69]
 

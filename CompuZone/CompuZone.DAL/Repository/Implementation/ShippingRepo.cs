@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using CompuZone.DAL.Data;
 using CompuZone.DAL.Entities;
 using CompuZone.DAL.Repository.Interfaces;
+using Microsoft.EntityFrameworkCore;
 
 namespace CompuZone.DAL.Repository.Implementation
 {
@@ -25,7 +26,7 @@ namespace CompuZone.DAL.Repository.Implementation
 
         public async Task<bool> DeleteAsync(int id)
         {
-            _context.Shippings.Remove(_context.Shippings.SingleOrDefault(id));
+            _context.Shippings.Remove(_context.Shippings.SingleOrDefault(a => a.ShippingID == id)!);
 
             return await _context.SaveChangesAsync() > 0;
         }
@@ -37,7 +38,7 @@ namespace CompuZone.DAL.Repository.Implementation
 
         public async Task<Shipping?> GetByIdAsync(int id)
         {
-            return await _context.Shippings.SingleOrDefaultAsync(id);
+            return await _context.Shippings.SingleOrDefaultAsync(a => a.ShippingID == id);
         }
 
         public async Task<bool> UpdateAsync(Shipping shipping)

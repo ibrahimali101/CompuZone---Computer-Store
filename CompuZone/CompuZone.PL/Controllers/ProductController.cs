@@ -21,8 +21,8 @@ namespace CompuZone.PL.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
-            var products = await _service.GetAllProductsAsync();
-            return Ok(products); // Returns HTTP 200 with the JSON list
+            var result = await _service.GetAllAsync();
+            return Ok(result); // Returns HTTP 200 with the JSON list
         }
 
         // POST: api/products
@@ -32,9 +32,9 @@ namespace CompuZone.PL.Controllers
             // The [ApiController] attribute automatically checks Validation 
             // (like [Required]) so you don't need "if (!ModelState.IsValid)"
 
-            await _service.CreateProductAsync(dto);
+            var result = await _service.CreateAsync(dto);
 
-            return Ok(new { message = "Product created successfully" });
+            return Ok(result);
             // Or strictly: return CreatedAtAction(nameof(GetById), new { id = ... }, dto);
         }
     }

@@ -24,8 +24,8 @@ namespace CompuZone.DAL.Repository.Implementation
 
         public async Task<bool> DeleteAsync(int id)
         {
-            var payment = _context.Payments.FirstOrDefault(p => p.Id == id);
-            _context.Payments.Remove(payment);
+            var payment = _context.Payments.SingleOrDefault(p => p.OrderID == id);
+            _context.Payments.Remove(payment!);
             return await _context.SaveChangesAsync() > 0;
         }
 

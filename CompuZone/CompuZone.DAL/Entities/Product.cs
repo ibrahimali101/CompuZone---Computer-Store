@@ -15,8 +15,8 @@ namespace CompuZone.DAL.Entities
         public int QuantityInStock { get; set; } = 0; // [cite: 54] 
         public int? CategoryID { get; set; } // Foreign Key [cite: 57]
 
-        public CategoryDto? Category { get; set; } // Product is in 1 Category 
-        public ICollection<ProductImageDto>? Images { get; set; } // Product contains N Images [cite: 72]
-        public ICollection<OrderItem>? OrderItems { get; set; } // Product is in N OrderItems [cite: 60]
+        public Category Category { get; set; } // Product is in 1 Category 
+        public ICollection<ProductImage> Images { get; set; } // Product contains N Images [cite: 72]
+        public ICollection<OrderItem> OrderItems { get; set; } // Product is in N OrderItems [cite: 60]
     }
 }

@@ -18,9 +18,9 @@ namespace CompuZone.BLL.DTOs.Order
         public string Status { get; set; } // Could map int to string here (e.g. "Pending")
 
         public string CustomerName { get; set; } // Flattened
-        public List<ResOrderItemDto> OrderItems { get; set; }
-        public ResShippingDto Shipping { get; set; }
-        public ResPaymentDto Payment { get; set; }
+        public ICollection<ReqOrderItemDto> OrderItems { get; set; }
+        public ReqShippingDto Shipping { get; set; }
+        public ReqPaymentDto Payment { get; set; }
 
     }
 }

@@ -12,7 +12,7 @@ namespace CompuZone.BLL.DTOs.Shipping
         public string Address { get; set; }
         public string TrackingNumber { get; set; }
         public string ShippingStatus { get; set; }
-        public DateTime EstimatedDeliveryDate { get; set; }
+        public DateTime? EstimatedDeliveryDate { get; set; }
         public DateTime? ActualDeliveryDate { get; set; }
     }
 }

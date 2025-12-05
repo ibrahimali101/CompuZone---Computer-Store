@@ -11,7 +11,7 @@ namespace CompuZone.DAL.Entities
         public int OrderID { get; set; } // [cite: 39]
         public DateTime OrderDate { get; set; } // [cite: 44] -- 
         public decimal TotalAmount { get; set; } // [cite: 43] -- 
-        public int Status { get; set; } = 0; // [cite: 41]
+        public string Status { get; set; } = "Pending"; // [cite: 41]
         public int CustomerID { get; set; } // Foreign Key [cite: 40]
 
         // Navigation Properties

@@ -19,6 +19,6 @@ namespace CompuZone.BLL.DTOs.Product
         // Flattened Category Data
         public string CategoryName { get; set; }
 
-        public List<ResProductImageDto>? Images { get; set; }
+        public ICollection<ReqProductImageDto> Images { get; set; }
     }
 }

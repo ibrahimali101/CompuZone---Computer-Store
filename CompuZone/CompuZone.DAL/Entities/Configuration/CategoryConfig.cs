@@ -8,9 +8,9 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace CompuZone.DAL.Entities.Configuration
 {
-    public class CategoryConfig : IEntityTypeConfiguration<CategoryDto>
+    public class CategoryConfig : IEntityTypeConfiguration<Category>
     {
-        public void Configure(EntityTypeBuilder<CategoryDto> builder)
+        public void Configure(EntityTypeBuilder<Category> builder)
         {
             builder.HasKey(a => a.CategoryID);
 
@@ -20,7 +20,6 @@ namespace CompuZone.DAL.Entities.Configuration
                 .WithOne(a => a.Category)
                 .HasForeignKey(a => a.CategoryID)
                 .OnDelete(DeleteBehavior.Cascade);
-
         }
     }
 }

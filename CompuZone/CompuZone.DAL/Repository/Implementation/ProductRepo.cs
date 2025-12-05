@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using CompuZone.BLL.Interfaces;
 using CompuZone.DAL.Data;
 using CompuZone.DAL.Entities;
+using Microsoft.EntityFrameworkCore;
 
 namespace CompuZone.DAL.Repository.Implementation
 {
@@ -32,7 +33,7 @@ namespace CompuZone.DAL.Repository.Implementation
             return await _context.Products
                                  .Include(p => p.Category)
                                  .Include(p => p.Images) // Load images too if needed
-                                 .FirstOrDefaultAsync(p => p.ProductID == id);
+                                 .SingleOrDefaultAsync(p => p.ProductID == id);
         }
 
         public async Task<Product> AddAsync(Product product)

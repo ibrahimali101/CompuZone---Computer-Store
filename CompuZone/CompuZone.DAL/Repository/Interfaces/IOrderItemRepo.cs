@@ -10,9 +10,9 @@ namespace CompuZone.DAL.Repository.Interfaces
     internal interface IOrderItemRepo
     {
         public IQueryable<OrderItem> GetAllAsync();
-        public Task<OrderItem?> GetByIdAsync(int id);
+        public Task<OrderItem?> GetByIdAsync(int orderid, int productid);
         public Task<OrderItem?> AddAsync(OrderItem orderitem);
         public Task<bool> UpdateAsync(OrderItem orderitem);
-        public Task<bool> DeleteAsync(int id);
+        public Task<bool> DeleteAsync(int orderid, int productid);
     }
 }

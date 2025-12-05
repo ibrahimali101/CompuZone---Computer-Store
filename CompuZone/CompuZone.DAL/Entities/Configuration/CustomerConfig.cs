@@ -14,7 +14,22 @@ namespace CompuZone.DAL.Entities.Configuration
         {
             builder.HasKey(a => a.CustomerID);
 
-            builder.Property(a => a.)
+            builder.Property(a => a.DateOfBirth)
+                .IsRequired();
+            builder.Property(a => a.Name)
+                .HasMaxLength(100)
+                .IsRequired();
+
+            builder.Property(a => a.Email) // regex
+                .HasMaxLength(100)
+                .IsRequired();
+
+            builder.Property(a => a.Phone) // regex
+                .HasMaxLength(11)
+                .IsRequired();
+
+            builder.Property(a => a.Address)
+                .IsRequired();
         }
     }
 }

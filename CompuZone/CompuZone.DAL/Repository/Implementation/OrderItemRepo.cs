@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using CompuZone.DAL.Data;
 using CompuZone.DAL.Entities;
 using CompuZone.DAL.Repository.Interfaces;
+using Microsoft.EntityFrameworkCore;
 
 namespace CompuZone.DAL.Repository.Implementation
 {
@@ -24,10 +25,10 @@ namespace CompuZone.DAL.Repository.Implementation
             return await _context.SaveChangesAsync() > 0 ? orderitem : null;
         }
 
-        public async Task<bool> DeleteAsync(int id)
+        public async Task<bool> DeleteAsync(int orderid, int productid)
         {
-            var orderitem = _context.OrderItems.FirstOrDefault(oi => oi.Id == id);
-            _context.OrderItems.Remove(orderitem);
+            var orderitem = _context.OrderItems.SingleOrDefault(oi => oi.OrderID == orderid && oi.ProductID == productid);
+            _context.OrderItems.Remove(orderitem!);
             return await _context.SaveChangesAsync() > 0;
         }
 
@@ -36,9 +37,9 @@ namespace CompuZone.DAL.Repository.Implementation
             return _context.OrderItems.AsQueryable();
         }
 
-        public async Task<OrderItem?> GetByIdAsync(int id)
+        public async Task<OrderItem?> GetByIdAsync(int orderid, int productid)
         {
-            return await _context.OrderItems.SingleOrDefault(oi => oi.Id == id); ;
+            return await _context.OrderItems.SingleOrDefaultAsync(oi => oi.OrderID == orderid && oi.ProductID == productid); ;
         }
 
         public async Task<bool> UpdateAsync(OrderItem orderitem)

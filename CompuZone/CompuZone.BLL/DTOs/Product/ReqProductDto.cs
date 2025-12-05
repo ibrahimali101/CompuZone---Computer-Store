@@ -17,6 +17,6 @@ namespace CompuZone.BLL.DTOs.Product
         public int? CategoryID { get; set; } // Link to category
 
         // Optional: Allow uploading images while creating product
-        public List<ResProductImageDto>? Images { get; set; }
+        public List<ReqProductImageDto>? Images { get; set; }
     }
 }

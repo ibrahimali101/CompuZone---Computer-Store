@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using CompuZone.DAL.Data;
 using CompuZone.DAL.Entities;
 using CompuZone.DAL.Repository.Interfaces;
+using Microsoft.EntityFrameworkCore;
 
 namespace CompuZone.DAL.Repository.Implementation
 {
@@ -23,7 +24,7 @@ namespace CompuZone.DAL.Repository.Implementation
 
         public async Task<bool> DeleteAsync(int id)
         {
-            Category category = _context.Categories.FirstOrDefault(id);
+            Category category = _context.Categories.SingleOrDefault(a => a.CategoryID == id)!;
             _context.Categories.Remove(category);
             return await _context.SaveChangesAsync() > 0;
         }
@@ -35,7 +36,7 @@ namespace CompuZone.DAL.Repository.Implementation
 
         public async Task<Category?> GetByIdAsync(int id)
         {
-            return await _context.Categories.Include(c => c.Products).FirstOrDefault(c => c.Id == id);
+            return await _context.Categories.Include(c => c.Products).SingleOrDefaultAsync(c => c.CategoryID == id);
         }
 
         public async Task<bool> UpdateAsync(Category category)
