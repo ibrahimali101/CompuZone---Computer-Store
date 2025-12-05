@@ -31,12 +31,15 @@ namespace CompuZone.DAL.Repository.Implementation
 
         public IQueryable<Category> GetAllAsync()
         {
-            return _context.Categories.Include(c => c.Products).AsQueryable();
+            return _context.Categories.Include(c => c.Products).ThenInclude(c => c.Images).AsQueryable();
         }
 
         public async Task<Category?> GetByIdAsync(int id)
         {
-            return await _context.Categories.Include(c => c.Products).SingleOrDefaultAsync(c => c.CategoryID == id);
+            return await _context.Categories
+        .Include(c => c.Products)               
+            .ThenInclude(p => p.Images)        
+        .SingleOrDefaultAsync(c => c.CategoryID == id);
         }
 
         public async Task<bool> UpdateAsync(Category category)

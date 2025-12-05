@@ -45,5 +45,6 @@ namespace CompuZone.DAL.Repository.Implementation
             context.Customers.Update(customer);
             return await context.SaveChangesAsync() > 0;
         }
+
     }
 }

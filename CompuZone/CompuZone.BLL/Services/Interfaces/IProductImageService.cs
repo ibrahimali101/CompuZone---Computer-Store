@@ -8,7 +8,7 @@ using CompuZone.BLL.DTOs.Response;
 
 namespace CompuZone.BLL.Services.Interfaces
 {
-    public interface IProductImageImageService
+    public interface IProductImageService
     {
         public Task<ResponseDto<List<ResProductImageDto>>> GetAllAsync();
         public Task<ResponseDto<ResProductImageDto>> CreateAsync(ReqProductImageDto dto);

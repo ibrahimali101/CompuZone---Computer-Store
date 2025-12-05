@@ -7,7 +7,7 @@ using CompuZone.DAL.Entities;
 
 namespace CompuZone.DAL.Repository.Interfaces
 {
-    internal interface IOrderItemRepo
+    public interface IOrderItemRepo
     {
         public IQueryable<OrderItem> GetAllAsync();
         public Task<OrderItem?> GetByIdAsync(int orderid, int productid);

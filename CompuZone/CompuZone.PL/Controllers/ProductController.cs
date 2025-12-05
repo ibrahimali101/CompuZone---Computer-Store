@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace CompuZone.PL.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/[controller]/[action]")]
     [ApiController]
     public class ProductController : ControllerBase
     {
@@ -37,5 +37,24 @@ namespace CompuZone.PL.Controllers
             return Ok(result);
             // Or strictly: return CreatedAtAction(nameof(GetById), new { id = ... }, dto);
         }
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetById([FromRoute] int id)
+        {
+            var result = await _service.GetByIdAsync(id);
+            return Ok(result);
+        }
+        [HttpPut("{id}")]
+        public async Task<IActionResult> Update([FromRoute] int id, [FromBody] ReqProductDto dto)
+        {
+            var result = await _service.UpdateAsync(id, dto);
+            return Ok(result);
+        }
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> Delete([FromRoute] int id)
+        {
+            var result = await _service.DeleteAsync(id);
+            return Ok(result);
+        }
+
     }
 }

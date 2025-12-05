@@ -1,11 +1,48 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using CompuZone.BLL.DTOs;
+using CompuZone.BLL.Services.Interfaces;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CompuZone.PL.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/[controller]/[action]")]
     [ApiController]
     public class OrderItemController : ControllerBase
     {
+        private readonly IOrderItemService _oiserv;
+        public OrderItemController(IOrderItemService oiserv)
+        {
+            _oiserv = oiserv;
+        }
+        [HttpGet]
+        public async Task<IActionResult> GetAllAsync()
+        {
+            var result = await _oiserv.GetAllAsync();
+            return Ok(result);
+        }
+        [HttpGet("{orderid}/{productid}")]
+        public async Task<IActionResult> GetByIdAsync([FromRoute] int orderid, int productid)
+        {
+            var result = await _oiserv.GetByIdAsync(orderid, productid);
+            return Ok(result);
+        }
+        [HttpPost]
+        public async Task<IActionResult> CreateAsync([FromBody] ReqOrderItemDto dto)
+        {
+            var result = await _oiserv.CreateAsync(dto);
+            return Ok(result);
+        }
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateAsync([FromRoute] int id, [FromBody] ReqOrderItemDto dto)
+        {
+            var result = await _oiserv.UpdateAsync(id, dto);
+            return Ok(result);
+        }
+        [HttpDelete("{orderid}/{productid}")]
+        public async Task<IActionResult> DeleteAsync([FromRoute] int orderid, int productid)
+        {
+            var result = await _oiserv.DeleteAsync(orderid, productid);
+            return Ok(result);
+        }
     }
 }
