@@ -20,14 +20,15 @@ namespace CompuZone.BLL.Services.Implementation
         private readonly IProductRepo _prepo;
         private readonly IMapper _mapper;
 
-        public ProductService(IProductRepo repository)
+        public ProductService(IProductRepo repository, IMapper mapper)
         {
             _prepo = repository;
+            _mapper = mapper;
         }
 
         public async Task<ResponseDto<List<ResProductDto>>> GetAllAsync()
         {
-            var products =  _prepo.GetAllAsync().ToList();
+            var products = await _prepo.GetAllAsync().ToListAsync();
             // mapping
             var result = _mapper.Map<List<Product>, List<ResProductDto>>(products);
 

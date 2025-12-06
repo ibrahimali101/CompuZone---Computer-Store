@@ -5,11 +5,12 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using CompuZone.DAL.Entities;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace CompuZone.DAL.Data
 {
-    public class CompContext : DbContext
+    public class CompContext : IdentityDbContext<User>
     {
         public CompContext(DbContextOptions<CompContext> options) : base(options)
         {
@@ -26,9 +27,6 @@ namespace CompuZone.DAL.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-
-            // This scans the current project (DAL), finds every class that 
-            // implements IEntityTypeConfiguration, and applies it.
             modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
         }
     }

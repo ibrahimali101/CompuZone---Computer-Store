@@ -26,7 +26,9 @@ public class MappingProfile : Profile
         CreateMap<ReqProductDto, Product>();
         CreateMap<Product, ResProductDto>()
             .ForMember(dest => dest.CategoryName,
-                       opt => opt.MapFrom(src => src.Category != null ? src.Category.CategoryName : "N/A"));
+                       opt => opt.MapFrom(src => src.Category != null ? src.Category.CategoryName : "N/A"))
+            .ForMember(dest => dest.Images,
+                       opt => opt.MapFrom(src => src.Images));
 
         CreateMap<ReqShippingDto, Shipping>();
         CreateMap<Shipping, ReqShippingDto>();
@@ -43,15 +45,12 @@ public class MappingProfile : Profile
 
         CreateMap<ReqOrderDto, Order>()
             .ForMember(dest => dest.OrderItems, opt => opt.MapFrom(src => src.OrderItems))
-            // Map the nested Shipping/Payment objects
-            // Assuming your DTO calls it "ShippingDetails" but Entity calls it "Shipping"
             .ForMember(dest => dest.Shipping, opt => opt.MapFrom(src => src.ShippingDetails))
             .ForMember(dest => dest.Payment, opt => opt.MapFrom(src => src.PaymentDetails));
 
         CreateMap<Order, ResOrderDto>()
             .ForMember(dest => dest.CustomerName,
                        opt => opt.MapFrom(src => src.Customer.Name))
-            // Map the related objects so the full tree is returned
             .ForMember(dest => dest.OrderItems, opt => opt.MapFrom(src => src.OrderItems))
             .ForMember(dest => dest.Shipping, opt => opt.MapFrom(src => src.Shipping))
             .ForMember(dest => dest.Payment, opt => opt.MapFrom(src => src.Payment));
