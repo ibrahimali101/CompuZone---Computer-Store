@@ -25,7 +25,7 @@ namespace CompuZone.BLL.DTOs.Auth
         public string ConfirmPassword { get; set; }
         public string Phone { get; set; }
 
-        public int Role { get; set; } 
+        public int Role { get; set; }
 
     }
 }

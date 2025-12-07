@@ -26,6 +26,10 @@ namespace CompuZone.PL.Controllers
         [Authorize]
         public async Task<IActionResult> Create([FromBody] ReqProductImageDto pidto)
         {
+            if (!User.IsInRole("Admin"))
+            {
+                return Unauthorized("You are not an Admin."); // Returns 401
+            }
             var result = await _pirepo.CreateAsync(pidto);
             return Ok(result);
         }
@@ -33,6 +37,10 @@ namespace CompuZone.PL.Controllers
         [Authorize]
         public async Task<IActionResult> Delete([FromRoute] int id)
         {
+            if (!User.IsInRole("Admin"))
+            {
+                return Unauthorized("You are not an Admin."); // Returns 401
+            }
             var result = await _pirepo.DeleteAsync(id);
             return Ok(result);
         }
@@ -46,6 +54,10 @@ namespace CompuZone.PL.Controllers
         [Authorize]
         public async Task<IActionResult> Update([FromRoute] int id, [FromBody] ReqProductImageDto pidto)
         {
+            if (!User.IsInRole("Admin"))
+            {
+                return Unauthorized("You are not an Admin."); // Returns 401
+            }
             var result = await _pirepo.UpdateAsync(id, pidto);
             return Ok(result);
         }

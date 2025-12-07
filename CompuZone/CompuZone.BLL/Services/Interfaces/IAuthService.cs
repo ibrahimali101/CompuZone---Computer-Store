@@ -12,6 +12,5 @@ namespace CompuZone.BLL.AuthStuffs
     {
         public Task<ResponseDto<ResAuthDto>> RegisterAsync(RegisterDto authRegisterDto);
         public Task<ResponseDto<ResAuthDto>> LoginAsync(LoginDto authLoginDto);
-        public Task<ResponseDto<bool>> LogoutAsync(string id);
     }
 }

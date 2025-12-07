@@ -5,6 +5,7 @@ using System.Linq;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
+using AutoMapper;
 using CompuZone.BLL.AuthStuffs;
 using CompuZone.BLL.DTOs.Auth;
 using CompuZone.BLL.DTOs.Response;
@@ -22,11 +23,13 @@ namespace CompuZone.BLL.Services.Implementation
         private readonly UserManager<User> _userManager;
         private readonly RoleManager<IdentityRole> _roleManager;
         private readonly IJwtService _jwtserv;
-        public AuthService(UserManager<User> usermanager, RoleManager<IdentityRole> rolemanager, IJwtService jwtService)
+        private readonly IMapper _mapper;
+        public AuthService(IMapper mapper, UserManager<User> usermanager, RoleManager<IdentityRole> rolemanager, IJwtService jwtService)
         {
             _userManager = usermanager;
             _roleManager = rolemanager;
             _jwtserv = jwtService;
+            _mapper = mapper;
         }
 
         public async Task<ResponseDto<ResAuthDto>> RegisterAsync(RegisterDto model)
@@ -35,13 +38,9 @@ namespace CompuZone.BLL.Services.Implementation
                 return new ResponseDto<ResAuthDto>
                 { IsSuccess = false, Message = "Email is already registered!" };
 
-            var user = new User
-            {
-                UserName = model.UserName,
-                Email = model.Email
-            };
-
-            var result = await _userManager.CreateAsync(user, model.Password);
+            User _user = _mapper.Map<RegisterDto, User>(model);
+            _user.PasswordHash = new PasswordHasher<User>().HashPassword(_user, model.Password);
+            var result = await _userManager.CreateAsync(_user);
 
             if (!result.Succeeded)
             {
@@ -51,21 +50,23 @@ namespace CompuZone.BLL.Services.Implementation
                 return new ResponseDto<ResAuthDto> { IsSuccess = false ,Message = errors };
             }
 
-            // 2. Assign Role to User
             List<Claim> claims = new List<Claim>
             {
-                new Claim(ClaimTypes.Name, model.UserName),
-                new Claim(ClaimTypes.Role, "Admin")
+                new Claim(ClaimTypes.Name, _user.UserName),
+                new Claim(ClaimTypes.Email, _user.Email),
+                new Claim(ClaimTypes.NameIdentifier, _user.Id),
+                new Claim(ClaimTypes.Role, model.Role == 0 ? "Admin" : "Customer")
             };
 
-            var token = _jwtserv.GenerateToken((await _userManager.GetClaimsAsync(user)).ToList());
+            var iden = await _userManager.AddClaimsAsync(_user, claims);
+
+            var token = _jwtserv.GenerateToken((await _userManager.GetClaimsAsync(_user)).ToList());
 
             ResAuthDto resAuth = new ResAuthDto
             {
-                UserId = user.Id,
+                UserId = _user.Id,
                 JwtToken = token// fill here
             };
-            // 3. Return Success (or generate token immediately)
             return new ResponseDto<ResAuthDto>
             {
                 IsSuccess = true,
@@ -104,20 +105,6 @@ namespace CompuZone.BLL.Services.Implementation
                 Data = authResponseDto,
                 Message = "User logged successfully",
                 IsSuccess = true
-            };
-        }
-
-        public async Task<ResponseDto<bool>> LogoutAsync(string id)
-        {
-            // clear cache
-
-
-
-            return new ResponseDto<bool>
-            {
-                IsSuccess = true,
-                Message = "User logged out successfully",
-                Data = true
             };
         }
     }

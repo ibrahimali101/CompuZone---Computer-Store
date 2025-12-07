@@ -14,7 +14,6 @@ namespace CompuZone.DAL.Repository.Implementation
     {
         private readonly CompContext _context; 
 
-        // Constructor Injection: We ask for the DbContext here
         public ProductRepo(CompContext context)
         {
             _context = context;
@@ -22,7 +21,6 @@ namespace CompuZone.DAL.Repository.Implementation
 
         public IQueryable<Product> GetAllAsync()
         {
-            // .Include(p => p.Category) joins the tables so we get Category names too
             return _context.Products
                                  .Include(p => p.Category)
                                  .Include(p => p.Images) 

@@ -1,14 +1,15 @@
 ﻿using AutoMapper;
-using CompuZone.DAL.Entities;
+using CompuZone.BLL.DTOs;
+using CompuZone.BLL.DTOs.Auth;
 // Adjust these namespaces to match where you actually put your DTO files
 using CompuZone.BLL.DTOs.Category;
 using CompuZone.BLL.DTOs.Customer;
-using CompuZone.BLL.DTOs.Product;
 using CompuZone.BLL.DTOs.Order;
-using CompuZone.BLL.DTOs.Shipping;
 using CompuZone.BLL.DTOs.Payment;
+using CompuZone.BLL.DTOs.Product;
 using CompuZone.BLL.DTOs.ProductImage;
-using CompuZone.BLL.DTOs;
+using CompuZone.BLL.DTOs.Shipping;
+using CompuZone.DAL.Entities;
 
 public class MappingProfile : Profile
 {
@@ -19,6 +20,10 @@ public class MappingProfile : Profile
 
         CreateMap<ReqCustomerDto, Customer>();
         CreateMap<Customer, ResCustomerDto>();
+
+
+        CreateMap<RegisterDto, User>();
+        CreateMap<User,LoginDto>();
 
         CreateMap<ReqProductImageDto, ProductImage>();
         CreateMap<ProductImage, ResProductImageDto>();

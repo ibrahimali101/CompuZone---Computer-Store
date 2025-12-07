@@ -31,6 +31,10 @@ namespace CompuZone.PL.Controllers
         [Authorize]
         public async Task<IActionResult> CreateAsync([FromBody] ReqOrderItemDto dto)
         {
+            if (!User.IsInRole("Admin"))
+            {
+                return Unauthorized("You are not an Admin."); // Returns 401
+            }
             var result = await _oiserv.CreateAsync(dto);
             return Ok(result);
         }
@@ -38,6 +42,10 @@ namespace CompuZone.PL.Controllers
         [Authorize]
         public async Task<IActionResult> UpdateAsync([FromRoute] int id, [FromBody] ReqOrderItemDto dto)
         {
+            if (!User.IsInRole("Admin"))
+            {
+                return Unauthorized("You are not an Admin."); // Returns 401
+            }
             var result = await _oiserv.UpdateAsync(id, dto);
             return Ok(result);
         }
@@ -45,6 +53,10 @@ namespace CompuZone.PL.Controllers
         [Authorize]
         public async Task<IActionResult> DeleteAsync([FromRoute] int orderid, int productid)
         {
+            if (!User.IsInRole("Admin"))
+            {
+                return Unauthorized("You are not an Admin."); // Returns 401
+            }
             var result = await _oiserv.DeleteAsync(orderid, productid);
             return Ok(result);
         }

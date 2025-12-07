@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("CompuZone.PL")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+786012ddb711e6c306beb1ad544dd8bc88542a50")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+cc974d63286bcfff80b52ebb4b11eb9936373c34")]
 [assembly: System.Reflection.AssemblyProductAttribute("CompuZone.PL")]
 [assembly: System.Reflection.AssemblyTitleAttribute("CompuZone.PL")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
