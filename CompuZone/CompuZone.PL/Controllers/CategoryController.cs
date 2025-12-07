@@ -1,5 +1,6 @@
 ﻿using CompuZone.BLL.DTOs.Category;
 using CompuZone.BLL.Services.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -21,6 +22,7 @@ namespace CompuZone.PL.Controllers
             return Ok(result);
         }
         [HttpPost]
+        [Authorize]
         public async Task<IActionResult> CreateAsync([FromBody] ReqCategoryDto dto)
         {
             var result = await _cserv.CreateAsync(dto);
@@ -33,12 +35,14 @@ namespace CompuZone.PL.Controllers
             return Ok(result);
         }
         [HttpPut("{id}")]
+        [Authorize]
         public async Task<IActionResult> UpdateAsync([FromRoute] int id, [FromBody] ReqCategoryDto dto)
         {
             var result = await _cserv.UpdateAsync(id, dto);
             return Ok(result);
         }
         [HttpDelete("{id}")]
+        [Authorize]
         public async Task<IActionResult> DeleteAsync([FromRoute] int id)
         {
             var result = await _cserv.DeleteAsync(id);

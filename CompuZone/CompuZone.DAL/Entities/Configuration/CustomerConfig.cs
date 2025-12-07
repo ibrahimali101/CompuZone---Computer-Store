@@ -14,8 +14,6 @@ namespace CompuZone.DAL.Entities.Configuration
         {
             builder.HasKey(a => a.CustomerID);
 
-            builder.Property(a => a.DateOfBirth)
-                .IsRequired();
             builder.Property(a => a.Name)
                 .HasMaxLength(100)
                 .IsRequired();

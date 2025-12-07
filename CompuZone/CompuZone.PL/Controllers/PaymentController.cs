@@ -1,6 +1,7 @@
 ﻿using CompuZone.BLL.DTOs;
 using CompuZone.BLL.DTOs.Payment;
 using CompuZone.BLL.Services.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -32,6 +33,7 @@ namespace CompuZone.PL.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         public async Task<IActionResult> CreateAsync([FromBody] ReqPaymentDto dto)
         {
             var result = await _pserv.CreateAsync(dto);
@@ -39,12 +41,14 @@ namespace CompuZone.PL.Controllers
         }
 
         [HttpPut("{id}")]
+        [Authorize]
         public async Task<IActionResult> UpdateAsync([FromRoute] int id, [FromBody] ReqPaymentDto dto)
         {
             var result = await _pserv.UpdateAsync(id, dto);
             return Ok(result);
         }
         [HttpDelete("{id}")]
+        [Authorize]
         public async Task<IActionResult> DeleteAsync([FromRoute] int id)
         {
             var result = await _pserv.DeleteAsync(id);

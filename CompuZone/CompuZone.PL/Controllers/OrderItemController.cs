@@ -1,5 +1,6 @@
 ﻿using CompuZone.BLL.DTOs;
 using CompuZone.BLL.Services.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -27,18 +28,21 @@ namespace CompuZone.PL.Controllers
             return Ok(result);
         }
         [HttpPost]
+        [Authorize]
         public async Task<IActionResult> CreateAsync([FromBody] ReqOrderItemDto dto)
         {
             var result = await _oiserv.CreateAsync(dto);
             return Ok(result);
         }
         [HttpPut("{id}")]
+        [Authorize]
         public async Task<IActionResult> UpdateAsync([FromRoute] int id, [FromBody] ReqOrderItemDto dto)
         {
             var result = await _oiserv.UpdateAsync(id, dto);
             return Ok(result);
         }
         [HttpDelete("{orderid}/{productid}")]
+        [Authorize]
         public async Task<IActionResult> DeleteAsync([FromRoute] int orderid, int productid)
         {
             var result = await _oiserv.DeleteAsync(orderid, productid);

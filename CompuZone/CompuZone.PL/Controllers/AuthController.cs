@@ -20,13 +20,26 @@ namespace CompuZone.PL.Controllers
         public async Task<IActionResult> RegisterAsync([FromBody] RegisterDto model)
         {
             if (!ModelState.IsValid) return BadRequest(ModelState);
+
             var result = await _authService.RegisterAsync(model);
 
-            if (!result.IsAuthenticated) return BadRequest(result.Message);
+            if (result == null)
+                return BadRequest("User registration failed.");
 
             return Ok(result);
         }
 
-        // Add Login Endpoint similarly...
+        [HttpPost("login")]
+        public async Task<IActionResult> LoginAsync([FromBody] LoginDto model)
+        {
+            if (!ModelState.IsValid) return BadRequest(ModelState);
+
+            var result = await _authService.LoginAsync(model);
+
+            if (result == null)
+                return BadRequest("User login failed.");
+
+            return Ok(result);
+        }
     }
 }

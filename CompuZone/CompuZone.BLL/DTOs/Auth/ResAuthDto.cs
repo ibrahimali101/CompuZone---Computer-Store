@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace CompuZone.BLL.DTOs.Auth
 {
-    public class LoginDto
+    public class ResAuthDto
     {
-        public string UserName { get; set; }
-        public string Password { get; set; }
+        public required string UserId { get; set; }
+        public required string JwtToken { get; set; }
     }
 }

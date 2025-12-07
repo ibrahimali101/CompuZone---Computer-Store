@@ -1,6 +1,7 @@
 ﻿using CompuZone.BLL.DTOs.ProductImage;
 using CompuZone.BLL.Services.Interfaces;
 using CompuZone.DAL.Repository.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -22,12 +23,14 @@ namespace CompuZone.PL.Controllers
             return Ok(await _pirepo.GetAllAsync());
         }
         [HttpPost]
+        [Authorize]
         public async Task<IActionResult> Create([FromBody] ReqProductImageDto pidto)
         {
             var result = await _pirepo.CreateAsync(pidto);
             return Ok(result);
         }
         [HttpDelete("{id}")]
+        [Authorize]
         public async Task<IActionResult> Delete([FromRoute] int id)
         {
             var result = await _pirepo.DeleteAsync(id);
@@ -40,6 +43,7 @@ namespace CompuZone.PL.Controllers
             return Ok(result);
         }
         [HttpPut("{id}")]
+        [Authorize]
         public async Task<IActionResult> Update([FromRoute] int id, [FromBody] ReqProductImageDto pidto)
         {
             var result = await _pirepo.UpdateAsync(id, pidto);

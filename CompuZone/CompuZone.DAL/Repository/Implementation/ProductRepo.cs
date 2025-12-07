@@ -25,6 +25,7 @@ namespace CompuZone.DAL.Repository.Implementation
             // .Include(p => p.Category) joins the tables so we get Category names too
             return _context.Products
                                  .Include(p => p.Category)
+                                 .Include(p => p.Images) 
                                  .AsQueryable();
         }
 
@@ -32,7 +33,7 @@ namespace CompuZone.DAL.Repository.Implementation
         {
             return await _context.Products
                                  .Include(p => p.Category)
-                                 .Include(p => p.Images) // Load images too if needed
+                                 .Include(p => p.Images) 
                                  .SingleOrDefaultAsync(p => p.ProductID == id);
         }
 
