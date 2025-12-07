@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
+using CompuZone.BLL.DTOs;
+using CompuZone.BLL.DTOs.Pagination;
 using CompuZone.BLL.DTOs.Payment;
 using CompuZone.BLL.DTOs.Response;
 using CompuZone.BLL.Services.Interfaces;
@@ -54,13 +56,22 @@ namespace CompuZone.BLL.Services.Implementation
             };
         }
 
-        public async Task<ResponseDto<List<ResPaymentDto>>> GetAllAsync()
+        public async Task<ResponseDto<PagedList<ResPaymentDto>>> GetAllAsync(PaginationParams pParams)
         {
-            List<Payment> payments = await _prepo.GetAllAsync().ToListAsync();
-            List<ResPaymentDto> Pdto = _mapper.Map<List<Payment>, List<ResPaymentDto>>(payments);
-            return new ResponseDto<List<ResPaymentDto>>
+            var pagedEntities = await _prepo.GetPagedAsync(pParams);
+            var orderDtos = _mapper.Map<List<ResPaymentDto>>(pagedEntities.Items);
+
+            // 3. Wrap
+            var pagedResult = new PagedList<ResPaymentDto>(
+                orderDtos,
+                pagedEntities.TotalCount,
+                pagedEntities.CurrentPage,
+                pagedEntities.PageSize
+            );
+
+            return new ResponseDto<PagedList<ResPaymentDto>>
             {
-                Data = Pdto,
+                Data = pagedResult,
                 Message = "Payments Retrieved Successfully",
                 IsSuccess = true
             };

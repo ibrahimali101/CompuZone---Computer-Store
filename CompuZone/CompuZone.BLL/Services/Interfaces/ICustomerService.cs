@@ -4,13 +4,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using CompuZone.BLL.DTOs.Customer;
+using CompuZone.BLL.DTOs.Order;
+using CompuZone.BLL.DTOs.Pagination;
 using CompuZone.BLL.DTOs.Response;
+using CompuZone.DAL.Entities;
 
 namespace CompuZone.BLL.Services.Interfaces
 {
     public interface ICustomerService
     {
-        public Task<ResponseDto<List<ResCustomerDto>>> GetAllAsync();
+        public Task<ResponseDto<PagedList<ResCustomerDto>>> GetAllAsync(PaginationParams pParams);
         public Task<ResponseDto<ResCustomerDto>> CreateAsync(ReqCustomerDto dto);
         public Task<ResponseDto<ResCustomerDto>> GetByIdAsync(int id);
         public Task<ResponseDto<bool>> UpdateAsync(int id, ReqCustomerDto dto);

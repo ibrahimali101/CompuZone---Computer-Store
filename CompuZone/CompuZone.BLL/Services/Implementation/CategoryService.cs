@@ -5,6 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
 using CompuZone.BLL.DTOs.Category;
+using CompuZone.BLL.DTOs.Order;
+using CompuZone.BLL.DTOs.Pagination;
 using CompuZone.BLL.DTOs.Product;
 using CompuZone.BLL.DTOs.Response;
 using CompuZone.BLL.Services.Interfaces;
@@ -16,12 +18,31 @@ namespace CompuZone.BLL.Services.Implementation
 {
     public class CategoryService : ICategoryService
     {
+
         private readonly ICategoryRepo _crepo;
         private readonly IMapper _mapper;
         public CategoryService(ICategoryRepo crep, IMapper mapper)
         {
             _crepo = crep;
             _mapper = mapper;
+        }
+        public async Task<ResponseDto<PagedList<ResCategoryDto>>> GetAllAsync(PaginationParams pParams)
+        {
+            var pagedEntities = await _crepo.GetPagedAsync(pParams);
+            var orderDtos = _mapper.Map<List<ResCategoryDto>>(pagedEntities.Items);
+            var pagedResult = new PagedList<ResCategoryDto>(
+                orderDtos,
+                pagedEntities.TotalCount,
+                pagedEntities.CurrentPage,
+                pagedEntities.PageSize
+            );
+
+            return new ResponseDto<PagedList<ResCategoryDto>>
+            {
+                Data = pagedResult,
+                Message = "Categories Retrieved Successfully",
+                IsSuccess = true
+            };
         }
         public async Task<ResponseDto<ResCategoryDto>> CreateAsync(ReqCategoryDto dto)
         {
@@ -51,21 +72,6 @@ namespace CompuZone.BLL.Services.Implementation
             {
                 Data = result,
                 Message = "Category Deleted Successfully",
-                IsSuccess = true
-            };
-        }
-
-        public async Task<ResponseDto<List<ResCategoryDto>>> GetAllAsync()
-        {
-            var categories = await _crepo.GetAllAsync().ToListAsync();
-            var Cdto = _mapper.Map<List<Category> , List<ResCategoryDto>>(categories).ToList();
-
-
-
-            return new ResponseDto<List<ResCategoryDto>>
-            {
-                Data = Cdto,
-                Message = "Categories Retrieved Successfully",
                 IsSuccess = true
             };
         }

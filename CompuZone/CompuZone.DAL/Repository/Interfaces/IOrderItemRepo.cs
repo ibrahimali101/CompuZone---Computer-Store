@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using CompuZone.BLL.DTOs.Pagination;
 using CompuZone.DAL.Entities;
 
 namespace CompuZone.DAL.Repository.Interfaces
@@ -14,5 +15,7 @@ namespace CompuZone.DAL.Repository.Interfaces
         public Task<OrderItem?> AddAsync(OrderItem orderitem);
         public Task<bool> UpdateAsync(OrderItem orderitem);
         public Task<bool> DeleteAsync(int orderid, int productid);
+
+        public Task<PagedList<OrderItem>> GetPagedAsync(PaginationParams pParams);
     }
 }

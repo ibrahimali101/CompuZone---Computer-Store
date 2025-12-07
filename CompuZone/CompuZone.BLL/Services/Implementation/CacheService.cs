@@ -27,8 +27,6 @@ namespace CompuZone.BLL.Services.Implementation
         public bool SetData<T>(string key, T value, DateTimeOffset expirationTime)
         {
             var expiryTime = expirationTime.DateTime.Subtract(DateTime.Now);
-
-            // You can set absolute or sliding expiration here
             var cacheEntryOptions = new MemoryCacheEntryOptions()
                 .SetAbsoluteExpiration(expiryTime);
 

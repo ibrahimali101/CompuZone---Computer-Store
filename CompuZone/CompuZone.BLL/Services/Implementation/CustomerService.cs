@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
 using CompuZone.BLL.DTOs.Customer;
+using CompuZone.BLL.DTOs.Pagination;
 using CompuZone.BLL.DTOs.Response;
 using CompuZone.BLL.Exceptions;
 using CompuZone.BLL.Services.Interfaces;
@@ -52,15 +53,22 @@ namespace CompuZone.BLL.Services.Implementation
             };
         }
 
-        public async Task<ResponseDto<List<ResCustomerDto>>> GetAllAsync()
+        public async Task<ResponseDto<PagedList<ResCustomerDto>>> GetAllAsync(PaginationParams pParams)
         {
-            List<Customer> customers = await _crepo.GetAllAsync().ToListAsync();
+            var pagedEntities = await _crepo.GetPagedAsync(pParams);
 
-            List<ResCustomerDto> Cdto = _mapper.Map<List<Customer> , List<ResCustomerDto>>(customers);
+            var customerDtos = _mapper.Map<List<ResCustomerDto>>(pagedEntities.Items);
 
-            return new ResponseDto<List<ResCustomerDto>>
+            var pagedResult = new PagedList<ResCustomerDto>(
+                customerDtos,
+                pagedEntities.TotalCount,
+                pagedEntities.CurrentPage,
+                pagedEntities.PageSize
+            );
+
+            return new ResponseDto<PagedList<ResCustomerDto>>
             {
-                Data = Cdto,
+                Data = pagedResult,
                 Message = "Customers retrieved successfully.",
                 IsSuccess = true
             };

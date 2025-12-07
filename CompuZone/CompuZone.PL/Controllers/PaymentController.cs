@@ -1,4 +1,5 @@
 ﻿using CompuZone.BLL.DTOs;
+using CompuZone.BLL.DTOs.Pagination;
 using CompuZone.BLL.DTOs.Payment;
 using CompuZone.BLL.DTOs.Response;
 using CompuZone.BLL.Services.Interfaces;
@@ -21,7 +22,7 @@ namespace CompuZone.PL.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAllAsync()
+        public async Task<IActionResult> GetAllAsync([FromQuery] PaginationParams pParams)
         {
             var res = _cs.GetData<ResponseDto<List<ResPaymentDto>>>("payments");
 
@@ -30,7 +31,7 @@ namespace CompuZone.PL.Controllers
                 return Ok(res);
             }
 
-            var result = await _pserv.GetAllAsync();
+            var result = await _pserv.GetAllAsync(pParams);
 
             _cs.SetData("payments", result, DateTimeOffset.Now.AddMinutes(5));
 

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using CompuZone.BLL.DTOs.Pagination;
 using CompuZone.DAL.Data;
 using CompuZone.DAL.Entities;
 using CompuZone.DAL.Repository.Interfaces;
@@ -13,10 +14,21 @@ namespace CompuZone.DAL.Repository.Implementation
     public class OrderRepo : IOrderRepo
     {
         private readonly CompContext _context;
-
+        internal DbSet<Order> _orders;
         public OrderRepo(CompContext context)
         {
             _context = context;
+            _orders = _context.Orders;
+        }
+        public async Task<PagedList<Order>> GetPagedAsync(PaginationParams pParams)
+        {
+            IQueryable<Order> query = _orders;
+            int totalCount = await query.CountAsync();
+            var items = await query
+                .Skip((pParams.PageNumber - 1) * pParams.PageSize)
+                .Take(pParams.PageSize)
+                .ToListAsync();
+            return new PagedList<Order>(items, totalCount, pParams.PageNumber, pParams.PageSize);
         }
         public async Task<Order?> AddAsync(Order order)
         {

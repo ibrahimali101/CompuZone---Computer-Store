@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using CompuZone.BLL.DTOs.Pagination;
 using CompuZone.DAL.Data;
 using CompuZone.DAL.Entities;
 using CompuZone.DAL.Repository.Interfaces;
@@ -13,10 +14,21 @@ namespace CompuZone.DAL.Repository.Implementation
     public class ShippingRepo : IShippingRepo
     {
         private readonly CompContext _context;
+        internal DbSet<Shipping> db;
         public ShippingRepo(CompContext context) {
             _context = context;
+            db = _context.Shippings;
         }
-
+        public async Task<PagedList<Shipping>> GetPagedAsync(PaginationParams pParams)
+        {
+            IQueryable<Shipping> query = db;
+            int totalCount = await query.CountAsync();
+            var items = await query
+                .Skip((pParams.PageNumber - 1) * pParams.PageSize)
+                .Take(pParams.PageSize)
+                .ToListAsync();
+            return new PagedList<Shipping>(items, totalCount, pParams.PageNumber, pParams.PageSize);
+        }
         public async Task<Shipping?> AddAsync(Shipping shipping)
         {
             _context.Shippings.Add(shipping);

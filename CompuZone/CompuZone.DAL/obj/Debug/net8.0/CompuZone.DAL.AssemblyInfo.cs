@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("CompuZone.DAL")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+cc974d63286bcfff80b52ebb4b11eb9936373c34")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+03812a778c3a3ef098f0f2cc5840c017aa9af6ed")]
 [assembly: System.Reflection.AssemblyProductAttribute("CompuZone.DAL")]
 [assembly: System.Reflection.AssemblyTitleAttribute("CompuZone.DAL")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

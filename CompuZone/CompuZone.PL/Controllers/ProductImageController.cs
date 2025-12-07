@@ -1,4 +1,5 @@
-﻿using CompuZone.BLL.DTOs.ProductImage;
+﻿using CompuZone.BLL.DTOs.Pagination;
+using CompuZone.BLL.DTOs.ProductImage;
 using CompuZone.BLL.DTOs.Response;
 using CompuZone.BLL.Services.Interfaces;
 using CompuZone.DAL.Repository.Interfaces;
@@ -21,7 +22,7 @@ namespace CompuZone.PL.Controllers
             _cs = cs;
         }
         [HttpGet]
-        public async Task<IActionResult> GetAll()
+        public async Task<IActionResult> GetAll([FromQuery] PaginationParams pParams)
         {
 
             var res = _cs.GetData<ResponseDto<List<ResProductImageDto>>>("productimages");
@@ -32,7 +33,7 @@ namespace CompuZone.PL.Controllers
                 return Ok(res);
             }
 
-            var result = await _pirepo.GetAllAsync();
+            var result = await _pirepo.GetAllAsync(pParams);
 
             _cs.SetData("productimages", result, DateTimeOffset.Now.AddMinutes(5));
 

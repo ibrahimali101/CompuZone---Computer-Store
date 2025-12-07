@@ -3,14 +3,17 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using CompuZone.BLL.DTOs.Order;
+using CompuZone.BLL.DTOs.Pagination;
 using CompuZone.BLL.DTOs.ProductImage;
 using CompuZone.BLL.DTOs.Response;
+using CompuZone.DAL.Entities;
 
 namespace CompuZone.BLL.Services.Interfaces
 {
     public interface IProductImageService
     {
-        public Task<ResponseDto<List<ResProductImageDto>>> GetAllAsync();
+        public Task<ResponseDto<PagedList<ResProductImageDto>>> GetAllAsync(PaginationParams pParams);
         public Task<ResponseDto<ResProductImageDto>> CreateAsync(ReqProductImageDto dto);
         public Task<ResponseDto<ResProductImageDto>> GetByIdAsync(int id);
         public Task<ResponseDto<bool>> UpdateAsync(int id, ReqProductImageDto dto);

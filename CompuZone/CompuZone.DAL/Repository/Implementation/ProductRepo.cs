@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using CompuZone.BLL.DTOs.Pagination;
 using CompuZone.BLL.Interfaces;
 using CompuZone.DAL.Data;
 using CompuZone.DAL.Entities;
@@ -13,12 +14,22 @@ namespace CompuZone.DAL.Repository.Implementation
     public class ProductRepo : IProductRepo
     {
         private readonly CompContext _context; 
-
+        internal DbSet<Product> db;
         public ProductRepo(CompContext context)
         {
             _context = context;
+            db = _context.Products;
         }
-
+        public async Task<PagedList<Product>> GetPagedAsync(PaginationParams pParams)
+        {
+            IQueryable<Product> query = db;
+            int totalCount = await query.CountAsync();
+            var items = await query
+                .Skip((pParams.PageNumber - 1) * pParams.PageSize)
+                .Take(pParams.PageSize)
+                .ToListAsync();
+            return new PagedList<Product>(items, totalCount, pParams.PageNumber, pParams.PageSize);
+        }
         public IQueryable<Product> GetAllAsync()
         {
             return _context.Products

@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
+using CompuZone.BLL.DTOs.Pagination;
+using CompuZone.BLL.DTOs.Shipping;
 using CompuZone.BLL.DTOs.Response;
 using CompuZone.BLL.DTOs.Shipping;
 using CompuZone.BLL.Services.Interfaces;
@@ -56,6 +58,27 @@ namespace CompuZone.BLL.Services.Implementation
             {
                 Data = Shdto,
                 Message = "Shipping Records Retrieved Successfully",
+                IsSuccess = true
+            };
+        }
+
+        public async Task<ResponseDto<PagedList<ResShippingDto>>> GetAllAsync(PaginationParams pParams)
+        {
+            var pagedEntities = await _shrepo.GetPagedAsync(pParams);
+            var orderDtos = _mapper.Map<List<ResShippingDto>>(pagedEntities.Items);
+
+            // 3. Wrap
+            var pagedResult = new PagedList<ResShippingDto>(
+                orderDtos,
+                pagedEntities.TotalCount,
+                pagedEntities.CurrentPage,
+                pagedEntities.PageSize
+            );
+
+            return new ResponseDto<PagedList<ResShippingDto>>
+            {
+                Data = pagedResult,
+                Message = "Shippings Retrieved Successfully",
                 IsSuccess = true
             };
         }

@@ -5,6 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
 using CompuZone.BLL.DTOs;
+using CompuZone.BLL.DTOs.Order;
+using CompuZone.BLL.DTOs.Pagination;
 using CompuZone.BLL.DTOs.Response;
 using CompuZone.BLL.Services.Interfaces;
 using CompuZone.DAL.Entities;
@@ -52,16 +54,23 @@ namespace CompuZone.BLL.Services.Implementation
             };
         }
 
-        public async Task<ResponseDto<List<ResOrderItemDto>>> GetAllAsync()
+        public async Task<ResponseDto<PagedList<ResOrderItemDto>>> GetAllAsync(PaginationParams pParams)
         {
-            List<OrderItem> orderitems = await _irepo.GetAllAsync().ToListAsync();
+            var pagedEntities = await _irepo.GetPagedAsync(pParams);
 
-            var orderitemsDto = _mapper.Map<List<OrderItem>, List<ResOrderItemDto>>(orderitems);
+            var orderDtos = _mapper.Map<List<ResOrderItemDto>>(pagedEntities.Items);
 
-            return new ResponseDto<List<ResOrderItemDto>>
+            var pagedResult = new PagedList<ResOrderItemDto>(
+                orderDtos,
+                pagedEntities.TotalCount,
+                pagedEntities.CurrentPage,
+                pagedEntities.PageSize
+            );
+
+            return new ResponseDto<PagedList<ResOrderItemDto>>
             {
-                Data = orderitemsDto,
-                Message = "Order Items Retrieved Successfully",
+                Data = pagedResult,
+                Message = "OrderItems Retrieved Successfully",
                 IsSuccess = true
             };
         }

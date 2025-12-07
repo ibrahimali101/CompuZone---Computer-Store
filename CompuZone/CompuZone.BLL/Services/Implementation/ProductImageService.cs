@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
+using CompuZone.BLL.DTOs;
+using CompuZone.BLL.DTOs.Pagination;
 using CompuZone.BLL.DTOs.ProductImage;
 using CompuZone.BLL.DTOs.Response;
 using CompuZone.BLL.Services.Interfaces;
@@ -48,14 +50,23 @@ namespace CompuZone.BLL.Services.Implementation
             };
         }
 
-        public async Task<ResponseDto<List<ResProductImageDto>>> GetAllAsync()
+        public async Task<ResponseDto<PagedList<ResProductImageDto>>> GetAllAsync(PaginationParams pParams)
         {
-            List<ProductImage> pis = await _pirepo.GetAllAsync().ToListAsync();
-            List<ResProductImageDto> Pidto = _mapper.Map<List<ProductImage>, List<ResProductImageDto>>(pis);
-            return new ResponseDto<List<ResProductImageDto>>
+            var pagedEntities = await _pirepo.GetPagedAsync(pParams);
+            var orderDtos = _mapper.Map<List<ResProductImageDto>>(pagedEntities.Items);
+
+            // 3. Wrap
+            var pagedResult = new PagedList<ResProductImageDto>(
+                orderDtos,
+                pagedEntities.TotalCount,
+                pagedEntities.CurrentPage,
+                pagedEntities.PageSize
+            );
+
+            return new ResponseDto<PagedList<ResProductImageDto>>
             {
-                Data = Pidto,
-                Message = "Product Images Retrieved Successfully",
+                Data = pagedResult,
+                Message = "ProductImages Retrieved Successfully",
                 IsSuccess = true
             };
         }

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
+using CompuZone.BLL.DTOs.Pagination;
 using CompuZone.BLL.DTOs.Product;
 using CompuZone.BLL.DTOs.Response;
 using CompuZone.BLL.Exceptions;
@@ -26,15 +27,22 @@ namespace CompuZone.BLL.Services.Implementation
             _mapper = mapper;
         }
 
-        public async Task<ResponseDto<List<ResProductDto>>> GetAllAsync()
+        public async Task<ResponseDto<PagedList<ResProductDto>>> GetAllAsync(PaginationParams pParams)
         {
-            var products = await _prepo.GetAllAsync().ToListAsync();
-            // mapping
-            var result = _mapper.Map<List<Product>, List<ResProductDto>>(products);
+            var pagedEntities = await _prepo.GetPagedAsync(pParams);
 
-            return new ResponseDto<List<ResProductDto>>
+            var productDtos = _mapper.Map<List<ResProductDto>>(pagedEntities.Items);
+
+            var pagedResult = new PagedList<ResProductDto>(
+                productDtos,
+                pagedEntities.TotalCount,
+                pagedEntities.CurrentPage,
+                pagedEntities.PageSize
+            );
+
+            return new ResponseDto<PagedList<ResProductDto>>
             {
-                Data = result,
+                Data = pagedResult,
                 IsSuccess = true,
                 Message = "Products retrieved successfully."
             };
@@ -118,6 +126,12 @@ namespace CompuZone.BLL.Services.Implementation
                 IsSuccess = true,
                 Message = "Product retrieved successfully."
             };
+        }
+
+
+        public Task<PagedList<Product>> GetPagedAsync(PaginationParams pParams)
+        {
+            throw new NotImplementedException();
         }
     }
 }

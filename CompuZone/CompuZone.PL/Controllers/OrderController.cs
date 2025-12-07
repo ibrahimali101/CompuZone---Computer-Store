@@ -1,4 +1,5 @@
 ﻿using CompuZone.BLL.DTOs.Order;
+using CompuZone.BLL.DTOs.Pagination;
 using CompuZone.BLL.DTOs.Response;
 using CompuZone.BLL.Services.Interfaces;
 using Microsoft.AspNetCore.Authorization;
@@ -20,7 +21,7 @@ namespace CompuZone.PL.Controllers
             _cs = cs;
         }
         [HttpGet]
-        public async Task<IActionResult> GetAllAsync()
+        public async Task<IActionResult> GetAllAsync([FromQuery] PaginationParams pParams)
         {
             var res = _cs.GetData<ResponseDto<List<ResOrderDto>>>("orders");
 
@@ -29,7 +30,7 @@ namespace CompuZone.PL.Controllers
                 return Ok(res);
             }
 
-            var result = await _oserv.GetAllAsync();
+            var result = await _oserv.GetAllAsync(pParams);
 
             _cs.SetData("orders", result, DateTimeOffset.Now.AddMinutes(5));
 
