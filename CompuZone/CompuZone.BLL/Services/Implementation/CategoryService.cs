@@ -31,8 +31,6 @@ namespace CompuZone.BLL.Services.Implementation
                 throw new Exception("An error occurred while creating Category");
             }
 
-            // roles
-
             var Cdto = _mapper.Map<Category, ResCategoryDto>(cate);
 
             return new ResponseDto<ResCategoryDto>
@@ -61,6 +59,9 @@ namespace CompuZone.BLL.Services.Implementation
         {
             var categories = await _crepo.GetAllAsync().ToListAsync();
             var Cdto = _mapper.Map<List<Category> , List<ResCategoryDto>>(categories).ToList();
+
+
+
             return new ResponseDto<List<ResCategoryDto>>
             {
                 Data = Cdto,

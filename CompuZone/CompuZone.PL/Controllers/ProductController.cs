@@ -1,4 +1,5 @@
 ﻿using CompuZone.BLL.DTOs.Product;
+using CompuZone.BLL.DTOs.Response;
 using CompuZone.BLL.Services.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -11,14 +12,27 @@ namespace CompuZone.PL.Controllers
     public class ProductController : ControllerBase
     {
         private readonly IProductService _service;
-        public ProductController(IProductService service)
+        private readonly ICacheService _cs;
+        public ProductController(IProductService service, ICacheService cs)
         {
             _service = service;
+            _cs = cs;
         }
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
+            var res = _cs.GetData<ResponseDto<List<ResProductDto>>>("products");
+
+
+            if (res != null)
+            {
+                return Ok(res);
+            }
+
             var result = await _service.GetAllAsync();
+
+            _cs.SetData("products", result, DateTimeOffset.Now.AddMinutes(5));
+
             return Ok(result); 
         }
         [HttpPost]
@@ -35,7 +49,18 @@ namespace CompuZone.PL.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById([FromRoute] int id)
         {
+            var res = _cs.GetData<ResponseDto<ResProductDto>>($"product_{id}");
+
+            if (res != null)
+            {
+                return Ok(res);
+            }
+
+
             var result = await _service.GetByIdAsync(id);
+
+            _cs.SetData($"product_{id}", result, DateTimeOffset.Now.AddMinutes(5));
+
             return Ok(result);
         }
         [HttpPut("{id}")]
@@ -47,6 +72,9 @@ namespace CompuZone.PL.Controllers
                 return Unauthorized("You are not an Admin."); // Returns 401
             }
             var result = await _service.UpdateAsync(id, dto);
+
+            _cs.RemoveData(_cs.GetData<string>($"product_{id}"));
+
             return Ok(result);
         }
         [HttpDelete("{id}")]
@@ -58,6 +86,9 @@ namespace CompuZone.PL.Controllers
                 return Unauthorized("You are not an Admin."); // Returns 401
             }
             var result = await _service.DeleteAsync(id);
+
+            _cs.RemoveData(_cs.GetData<string>($"product_{id}"));   
+
             return Ok(result);
         }
 

@@ -1,4 +1,5 @@
 ﻿using CompuZone.BLL.DTOs.Order;
+using CompuZone.BLL.DTOs.Response;
 using CompuZone.BLL.Services.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -11,21 +12,40 @@ namespace CompuZone.PL.Controllers
     public class OrderController : ControllerBase
     {
         private readonly IOrderService _oserv;
+        private readonly ICacheService _cs;
 
-        public OrderController(IOrderService oserv)
+        public OrderController(IOrderService oserv, ICacheService cs)
         {
             _oserv = oserv;
+            _cs = cs;
         }
         [HttpGet]
         public async Task<IActionResult> GetAllAsync()
         {
+            var res = _cs.GetData<ResponseDto<List<ResOrderDto>>>("orders");
+
+            if (res != null)
+            {
+                return Ok(res);
+            }
+
             var result = await _oserv.GetAllAsync();
+
+            _cs.SetData("orders", result, DateTimeOffset.Now.AddMinutes(5));
+
             return Ok(result);
         }
         [HttpGet("{id}")]
         public async Task<IActionResult> GetByIdAsync([FromRoute] int id)
         {
+            var res = _cs.GetData<ResponseDto<ResOrderDto>>($"order_{id}");
+
+            if (res != null)
+            {
+                return Ok(res);
+            }
             var result = await _oserv.GetByIdAsync(id);
+            _cs.SetData($"order_{id}", result, DateTimeOffset.Now.AddMinutes(5));
             return Ok(result);
         }
         [HttpPost]
@@ -48,6 +68,9 @@ namespace CompuZone.PL.Controllers
                 return Unauthorized("You are not an Admin."); // Returns 401
             }
             var result = await _oserv.UpdateAsync(id, dto);
+
+            _cs.RemoveData(_cs.GetData<string>($"order_{id}"));
+
             return Ok(result);
         }
         [HttpDelete("{id}")]
@@ -59,6 +82,9 @@ namespace CompuZone.PL.Controllers
                 return Unauthorized("You are not an Admin."); // Returns 401
             }
             var result = await _oserv.DeleteAsync(id);
+
+            _cs.RemoveData(_cs.GetData<string>($"order_{id}"));
+
             return Ok(result);
         }
 
